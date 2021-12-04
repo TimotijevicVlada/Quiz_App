@@ -1,10 +1,13 @@
 import React, { useState} from "react";
 import { Link } from "react-router-dom";
 
-const Home = () => {
+const Home = ({setCategory}) => {
   const [dropdown, setDropdown] = useState(false);
 
-  
+  const handleButtons = (number) => {
+      setDropdown(false);
+      setCategory(number);
+  }
 
   return (
     <div className="home">
@@ -22,21 +25,21 @@ const Home = () => {
             <div className="dropdown">
               <Link
                 to="/quiz"
-                onClick={() => setDropdown(false)}
+                onClick={() => handleButtons(26)}
                 className="celebrities"
               >
                 CELEBRITIES
               </Link>
               <Link
                 to="/quiz"
-                onClick={() => setDropdown(false)}
+                onClick={() => handleButtons(23)}
                 className="history"
               >
                 HISTORY
               </Link>
               <Link
                 to="/quiz"
-                onClick={() => setDropdown(false)}
+                onClick={() => handleButtons(25)}
                 className="art"
               >
                 ART

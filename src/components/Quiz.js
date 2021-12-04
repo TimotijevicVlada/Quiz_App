@@ -1,6 +1,11 @@
-import React from 'react'
+import React from 'react';
 
-const Quiz = () => {
+const Quiz = ({answers, questions}) => {
+
+    
+
+
+
     return (
         <div className="quiz">
             <div className="score">
@@ -10,7 +15,7 @@ const Quiz = () => {
                 </div>
             </div>
             <div className="timer">
-                <i class="far fa-clock"></i>
+                <i className="far fa-clock"></i>
                 <span className="time">20</span>
             </div>
             <div className="quiz_content">
@@ -18,21 +23,15 @@ const Quiz = () => {
                     <span>QUESTION 1</span>
                 </div>
                 <div className="question">
-                    <span>Kako se zvala zena Dzona Lenona?</span>
+                    <span>{questions[0].question}</span>
                 </div>
                 <div className="buttons">
-                    <div>
-                        <span className="order_btn">A</span>
-                        <span className="answer">OVO ONO</span>
-                    </div>
-                    <div>
-                        <span className="order_btn">B</span>
-                        <span className="answer">JOKO ONO</span>
-                    </div>
-                    <div>
-                        <span className="order_btn">C</span>
-                        <span className="answer">ONO OVO</span>
-                    </div>
+                    {answers.map(item => (
+                        <div>
+                            <span className="order_btn">A</span>
+                            <span className="answer">{item}</span>
+                        </div>
+                    ))}
                 </div>
             </div>
             <div className="skip">
