@@ -3,12 +3,12 @@
           box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: 'Poppins';
+  font-family: "Poppins";
 }
 
 .App {
   width: 100%;
-  height: 1024px;
+  height: 100vh;
 }
 
 .App .home {
@@ -47,7 +47,7 @@
 
 .App .home .logo .logo_rectangle {
   position: absolute;
-  background-color: #8D79E9;
+  background-color: #8d79e9;
   width: 235px;
   height: 30px;
   top: 153px;
@@ -72,10 +72,11 @@
           justify-content: space-between;
 }
 
-.App .home .menu .category, .App .home .menu .q_numbers {
+.App .home .menu .category,
+.App .home .menu .q_numbers {
   width: 602px;
   height: 108px;
-  border: 2px solid #8D79E9;
+  border: 2px solid #8d79e9;
   border-radius: 94px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -91,16 +92,19 @@
   position: relative;
 }
 
-.App .home .menu .category span, .App .home .menu .q_numbers span {
+.App .home .menu .category span,
+.App .home .menu .q_numbers span {
   font-size: 30px;
-  font-family: 'Inter';
+  font-family: "Inter";
 }
 
-.App .home .menu .category i, .App .home .menu .q_numbers i {
+.App .home .menu .category i,
+.App .home .menu .q_numbers i {
   font-size: 30px;
 }
 
-.App .home .menu .category .dropdown, .App .home .menu .q_numbers .dropdown {
+.App .home .menu .category .dropdown,
+.App .home .menu .q_numbers .dropdown {
   position: absolute;
   height: 324px;
   width: 602px;
@@ -110,7 +114,12 @@
   overflow: hidden;
 }
 
-.App .home .menu .category .dropdown .celebrities, .App .home .menu .category .dropdown .history, .App .home .menu .category .dropdown .art, .App .home .menu .q_numbers .dropdown .celebrities, .App .home .menu .q_numbers .dropdown .history, .App .home .menu .q_numbers .dropdown .art {
+.App .home .menu .category .dropdown .celebrities,
+.App .home .menu .category .dropdown .history,
+.App .home .menu .category .dropdown .art,
+.App .home .menu .q_numbers .dropdown .celebrities,
+.App .home .menu .q_numbers .dropdown .history,
+.App .home .menu .q_numbers .dropdown .art {
   height: 108px;
   width: 100%;
   display: -webkit-box;
@@ -126,26 +135,233 @@
   color: white;
 }
 
-.App .home .menu .category .dropdown .celebrities:hover, .App .home .menu .category .dropdown .history:hover, .App .home .menu .category .dropdown .art:hover, .App .home .menu .q_numbers .dropdown .celebrities:hover, .App .home .menu .q_numbers .dropdown .history:hover, .App .home .menu .q_numbers .dropdown .art:hover {
-  background-color: #8D79E9;
+.App .home .menu .category .dropdown .celebrities:hover,
+.App .home .menu .category .dropdown .history:hover,
+.App .home .menu .category .dropdown .art:hover,
+.App .home .menu .q_numbers .dropdown .celebrities:hover,
+.App .home .menu .q_numbers .dropdown .history:hover,
+.App .home .menu .q_numbers .dropdown .art:hover {
+  background-color: #8d79e9;
 }
 
-.App .home .menu .category .dropdown .unvisible, .App .home .menu .q_numbers .dropdown .unvisible {
+.App .home .menu .category .dropdown .unvisible,
+.App .home .menu .q_numbers .dropdown .unvisible {
   display: none;
 }
 
-.App .home .menu .category .dropdown .celebrities, .App .home .menu .q_numbers .dropdown .celebrities {
-  border: 2px solid #8D79E9;
+.App .home .menu .category .dropdown .celebrities,
+.App .home .menu .q_numbers .dropdown .celebrities {
+  border: 2px solid #8d79e9;
   border-radius: 50px 50px 0px 0px;
 }
 
-.App .home .menu .category .dropdown .history, .App .home .menu .q_numbers .dropdown .history {
-  border-left: 2px solid #8D79E9;
-  border-right: 2px solid #8D79E9;
+.App .home .menu .category .dropdown .history,
+.App .home .menu .q_numbers .dropdown .history {
+  border-left: 2px solid #8d79e9;
+  border-right: 2px solid #8d79e9;
 }
 
-.App .home .menu .category .dropdown .art, .App .home .menu .q_numbers .dropdown .art {
-  border: 2px solid #8D79E9;
+.App .home .menu .category .dropdown .art,
+.App .home .menu .q_numbers .dropdown .art {
+  border: 2px solid #8d79e9;
   border-radius: 0px 0px 50px 50px;
+}
+
+.App .quiz {
+  width: 100%;
+  height: 100%;
+  background: -webkit-gradient(linear, left top, left bottom, from(#132248), to(#120221));
+  background: linear-gradient(180deg, #132248 0%, #120221 100%);
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  color: white;
+}
+
+.App .quiz .score {
+  position: absolute;
+  left: 0;
+  top: 65px;
+  background-color: rgba(141, 121, 233, 0.2);
+  color: white;
+  padding: 26px 56px;
+  border-radius: 0px 80px 80px 0px;
+}
+
+.App .quiz .score .human_player {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.App .quiz .score .human_player .pts {
+  font-weight: 700;
+  font-size: 25px;
+  font-family: "Inter";
+}
+
+.App .quiz .score .human_player .player_name {
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 3px;
+}
+
+.App .quiz .timer {
+  position: absolute;
+  right: 0;
+  top: 65px;
+  font-family: "Inter";
+  font-weight: 700;
+  color: white;
+  width: 250px;
+  height: 108px;
+  background-color: #9e46fd;
+  border-radius: 94px 0px 0px 94px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.App .quiz .timer i {
+  font-size: 50px;
+  margin-right: 20px;
+}
+
+.App .quiz .timer span {
+  font-size: 35px;
+}
+
+.App .quiz .quiz_content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-bottom: 10%;
+}
+
+.App .quiz .quiz_content .q_number span {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 25px;
+}
+
+.App .quiz .quiz_content .question span {
+  font-family: "Inter";
+  font-weight: bold;
+  font-size: 34px;
+}
+
+.App .quiz .quiz_content .buttons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  width: 1350px;
+  margin-top: 70px;
+}
+
+.App .quiz .quiz_content .buttons div {
+  width: 350px;
+  height: 108px;
+  border-radius: 94px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border: 2px solid #8d79e9;
+  cursor: pointer;
+}
+
+.App .quiz .quiz_content .buttons div .order_btn {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: rgba(141, 121, 233, 0.2);
+  font-size: 25px;
+  font-family: 'Inter';
+  font-weight: 700;
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  margin-left: 30px;
+  margin-right: 30px;
+}
+
+.App .quiz .quiz_content .buttons div .answer {
+  font-size: 30px;
+  font-weight: 600;
+  font-family: 'Inter';
+}
+
+.App .quiz .skip {
+  margin-bottom: 60px;
+  border-radius: 30px;
+  background-color: rgba(141, 121, 233, 0.2);
+  padding: 10px 25px;
+  cursor: pointer;
+}
+
+.App .quiz .skip span {
+  font-size: 20px;
+  font-weight: 900;
+  font-family: 'Inter';
+  letter-spacing: 2px;
+}
+
+.App .quiz .progress_bar {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 15px;
+  background-color: rgba(141, 121, 233, 0.2);
+}
+
+.App .quiz .progress_bar .percentage {
+  width: 70%;
+  height: 100%;
+  background-color: #9E46FD;
 }
 /*# sourceMappingURL=App.css.map */
