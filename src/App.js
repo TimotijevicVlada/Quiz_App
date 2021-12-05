@@ -13,7 +13,9 @@ const App = () => {
  
   
 
+  //Function that fetch Api data 
   const fetchQuestions = useCallback(async () => {
+    setAnswers([]);
     const res = await fetch(
       `https://opentdb.com/api.php?amount=1&category=${category}&difficulty=medium&type=multiple`
     );
@@ -23,14 +25,29 @@ const App = () => {
     const incorectAnsw = data.results[0].incorrect_answers;
     const correctAnsw = data.results[0].correct_answer;
     const allAnsw = [...incorectAnsw, correctAnsw];
-    setAnswers(allAnsw);
+    //setAnswers(allAnsw);
+    shuffleAnsw(allAnsw);
   }, [category]);
 
   useEffect(() => {
     fetchQuestions();
   }, [fetchQuestions]);
 
-
+  //Function that shuffle the given array of answers
+  const shuffleAnsw = (an) => {
+    for(let i = 0; i < an.length; i++) {
+      let randomNum = Math.floor(Math.random() * an.length);
+      let tempAnsw = "";
+      let currentAnsw = an[i];
+      let randomAnsw = an[randomNum];
+      //swap answers
+      tempAnsw = currentAnsw;
+      an[i] = randomAnsw;
+      an[randomNum] = tempAnsw;
+    }
+    setAnswers(an);
+  }
+ 
   //Function that get question
   const getQuestionStorage = () => {
     if(localStorage.getItem("question") === null) {

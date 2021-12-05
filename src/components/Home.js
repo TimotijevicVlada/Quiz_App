@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 const Home = ({setCategory}) => {
   const [dropdown, setDropdown] = useState(false);
 
+
+  //Function that handle button to choose categories
   const handleButtons = (number) => {
       setDropdown(false);
       setCategory(number);

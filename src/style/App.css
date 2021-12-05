@@ -369,8 +369,48 @@
 }
 
 .App .quiz .progress_bar .percentage {
-  width: 70%;
+  width: 50%;
   height: 100%;
   background-color: #9E46FD;
+}
+
+.App .quiz .progress_bar .pct_bar_1 {
+  width: 10%;
+}
+
+.App .quiz .progress_bar .pct_bar_2 {
+  width: 20%;
+}
+
+.App .quiz .progress_bar .pct_bar_3 {
+  width: 30%;
+}
+
+.App .quiz .progress_bar .pct_bar_4 {
+  width: 40%;
+}
+
+.App .quiz .progress_bar .pct_bar_5 {
+  width: 50%;
+}
+
+.App .quiz .progress_bar .pct_bar_6 {
+  width: 60%;
+}
+
+.App .quiz .progress_bar .pct_bar_7 {
+  width: 70%;
+}
+
+.App .quiz .progress_bar .pct_bar_8 {
+  width: 80%;
+}
+
+.App .quiz .progress_bar .pct_bar_9 {
+  width: 90%;
+}
+
+.App .quiz .progress_bar .pct_bar_10 {
+  width: 100%;
 }
 /*# sourceMappingURL=App.css.map */
