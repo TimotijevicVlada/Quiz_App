@@ -1,7 +1,7 @@
 import React, { useState} from "react";
 import { Link } from "react-router-dom";
 
-const Home = ({setCategory}) => {
+const Home = ({setCategory, setCountdown}) => {
   const [dropdown, setDropdown] = useState(false);
 
 
@@ -9,6 +9,7 @@ const Home = ({setCategory}) => {
   const handleButtons = (number) => {
       setDropdown(false);
       setCategory(number);
+      setCountdown(20);
   }
 
   return (
