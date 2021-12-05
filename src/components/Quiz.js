@@ -9,7 +9,8 @@ const Quiz = ({
   setPoints,
   points,
   countdown,
-  setCountdown
+  setCountdown,
+  player
 }) => {
   const [percentage, setPercentage] = useState(0);
 
@@ -77,12 +78,12 @@ const Quiz = ({
       <div className="score">
         <div className="human_player">
           <span className="pts">{points} pts</span>
-          <span className="player_name">HUMAN PLAYER</span>
+          <span className="player_name">{player}</span>
         </div>
       </div>
       <div className="timer">
-        <i className="far fa-clock"></i>
-        <span className="time">{countdown}</span>
+        <i className={countdown < 6 ? "far fa-clock red" : "far fa-clock"}></i>
+        <span className={countdown < 6 ? "time red" : "time"}>{countdown}</span>
       </div>
       <div className="quiz_content">
         <div className="q_number">
@@ -95,9 +96,9 @@ const Quiz = ({
         </div>
         <div className="buttons">
           {answers.map((item) => (
-            <div onClick={() => handleAnswer(item)} key={item}>
-              <span className="order_btn">A</span>
-              <span className="answer">{item}</span>
+            <div onClick={() => handleAnswer(item.answ)} key={item.answ}>
+              <span className="order_btn">{item.order}</span>
+              <span className="answer">{item.answ}</span>
             </div>
           ))}
         </div>

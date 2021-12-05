@@ -1,7 +1,7 @@
 import React, { useState} from "react";
 import { Link } from "react-router-dom";
 
-const Home = ({setCategory, setCountdown}) => {
+const Home = ({setCategory, setCountdown, setPoints, setPlayer}) => {
   const [dropdown, setDropdown] = useState(false);
 
 
@@ -10,6 +10,7 @@ const Home = ({setCategory, setCountdown}) => {
       setDropdown(false);
       setCategory(number);
       setCountdown(20);
+      setPoints(0);
   }
 
   return (
@@ -17,6 +18,9 @@ const Home = ({setCategory, setCountdown}) => {
       <div className="logo">
         <span className="logo_name">Quiz</span>
         <span className="logo_rectangle"></span>
+      </div>
+      <div className="username">
+          <input onChange={(e) => setPlayer(e.target.value)} type="text" placeholder="ENTER USERNAME"/>
       </div>
       <div className="menu">
         <div onClick={() => setDropdown(!dropdown)} className="category">

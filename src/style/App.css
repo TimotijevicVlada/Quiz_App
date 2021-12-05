@@ -55,11 +55,58 @@
   z-index: 0;
 }
 
+.App .home .username {
+  width: 602px;
+  height: 108px;
+  border: 2px solid #8d79e9;
+  border-radius: 94px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding: 0px 60px;
+  cursor: pointer;
+  margin-bottom: 40px;
+}
+
+.App .home .username input {
+  width: 100%;
+  color: white;
+  background-color: transparent;
+  border: none;
+  font-size: 30px;
+  font-family: "Inter";
+}
+
+.App .home .username input:focus {
+  outline: none;
+}
+
+.App .home .username input::-webkit-input-placeholder {
+  color: white;
+}
+
+.App .home .username input:-ms-input-placeholder {
+  color: white;
+}
+
+.App .home .username input::-ms-input-placeholder {
+  color: white;
+}
+
+.App .home .username input::placeholder {
+  color: white;
+}
+
 .App .home .menu {
   color: white;
   width: 602px;
   height: 256px;
-  margin-top: 65px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -253,6 +300,10 @@
   font-size: 35px;
 }
 
+.App .quiz .timer .red {
+  color: red;
+}
+
 .App .quiz .quiz_content {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -327,7 +378,7 @@
           align-items: center;
   background-color: rgba(141, 121, 233, 0.2);
   font-size: 25px;
-  font-family: 'Inter';
+  font-family: "Inter";
   font-weight: 700;
   width: 55px;
   height: 55px;
@@ -340,7 +391,7 @@
 .App .quiz .quiz_content .buttons div .answer {
   font-size: 30px;
   font-weight: 600;
-  font-family: 'Inter';
+  font-family: "Inter";
 }
 
 .App .quiz .skip {
@@ -354,7 +405,7 @@
 .App .quiz .skip span {
   font-size: 20px;
   font-weight: 900;
-  font-family: 'Inter';
+  font-family: "Inter";
   letter-spacing: 2px;
 }
 
@@ -369,7 +420,7 @@
 .App .quiz .progress_bar .percentage {
   width: 50%;
   height: 100%;
-  background-color: #9E46FD;
+  background-color: #9e46fd;
 }
 
 .App .quiz .progress_bar .pct_bar_1 {
@@ -453,5 +504,22 @@
 
 .App .finish .finish_data div span {
   font-size: 30px;
+}
+
+.App .finish .finish_data .finish_link {
+  text-decoration: none;
+}
+
+.App .finish .finish_data .finish_link .finish_time {
+  background-color: #8d79e9;
+  cursor: pointer;
+}
+
+.App .finish .finish_data .finish_link .finish_time span {
+  color: white;
+}
+
+.App .finish .finish_data .finish_link .finish_time:hover {
+  background-color: #9e46fd;
 }
 /*# sourceMappingURL=App.css.map */

@@ -6,6 +6,8 @@ import QuizFinished from "./components/QuizFinished";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 const App = () => {
+
+  const [player, setPlayer] = useState("HUMAN PLAYER");
   const [category, setCategory] = useState(26);
   const [questions, setQuestions] = useState([]);
   const [answers, setAnswers] = useState([]);
@@ -25,7 +27,6 @@ const App = () => {
     const incorectAnsw = data.results[0].incorrect_answers;
     const correctAnsw = data.results[0].correct_answer;
     const allAnsw = [...incorectAnsw, correctAnsw];
-    //setAnswers(allAnsw);
     shuffleAnsw(allAnsw);
   }, [category]);
 
@@ -68,7 +69,13 @@ const App = () => {
       an[i] = randomAnsw;
       an[randomNum] = tempAnsw;
     }
-    setAnswers(an);
+    //setAnswers(an);
+    setAnswers([
+      {order: "A", answ: an[0]},
+      {order: "B", answ: an[1]},
+      {order: "C", answ: an[2]},
+      {order: "D", answ: an[3]}
+    ])
   };
 
   //Function that get question
@@ -93,6 +100,30 @@ const App = () => {
     saveQuestionStorage();
   }, [saveQuestionStorage]);
 
+  //Save points to the local storage
+  const getPlayerValue = () => {
+    if (localStorage.getItem("points") === null) {
+      localStorage.setItem("points", JSON.stringify({name: "HUMAN PLAYER", points: 0}));
+    } else {
+      const points = JSON.parse(localStorage.getItem("points"));
+      setPoints(points.points);
+      setPlayer(points.name);
+    }
+  }
+
+  useEffect(() => {
+    getPlayerValue();
+  }, [])
+
+  //Function that save favorite item to local storage
+  const savePlayerValue = useCallback(() => {
+    localStorage.setItem("points", JSON.stringify({name: player, points: points}));
+  }, [points, player]);
+
+  useEffect(() => {
+    savePlayerValue();
+  }, [savePlayerValue]);
+
   return (
     <Router>
       <div className="App">
@@ -100,7 +131,12 @@ const App = () => {
           <Route
             path="/"
             element={
-              <Home setCategory={setCategory} setCountdown={setCountdown} />
+              <Home 
+                setCategory={setCategory} 
+                setCountdown={setCountdown} 
+                setPoints={setPoints}
+                setPlayer={setPlayer}
+              />
             }
           />
           <Route
@@ -116,10 +152,11 @@ const App = () => {
                 setPoints={setPoints}
                 countdown={countdown}
                 setCountdown={setCountdown}
+                player={player}
               />
             }
           />
-          <Route path="/finish" element={<QuizFinished points={points} />} />
+          <Route path="/finish" element={<QuizFinished points={points} player={player}/>} />
         </Routes>
       </div>
     </Router>
