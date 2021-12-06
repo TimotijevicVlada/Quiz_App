@@ -1,16 +1,23 @@
 import React, { useState} from "react";
 import { Link } from "react-router-dom";
 
-const Home = ({setCategory, setCountdown, setPoints, setPlayer}) => {
+const Home = ({setCategory, setCountdown, setPoints, setPlayer, setQuestionNum, setQuestionNumbers, fetchQuestions}) => {
   const [dropdown, setDropdown] = useState(false);
+  const [numberDropdown, setNumberDropdown] = useState(false);
 
 
   //Function that handle button to choose categories
   const handleButtons = (number) => {
       setDropdown(false);
       setCategory(number);
-      setCountdown(20);
-      setPoints(0);
+  }
+
+  //Function that handle play button
+  const handlePlay = () => {
+    setCountdown(20);
+    setPoints(0);
+    setQuestionNum(1);
+    fetchQuestions();
   }
 
   return (
@@ -19,10 +26,11 @@ const Home = ({setCategory, setCountdown, setPoints, setPlayer}) => {
         <span className="logo_name">Quiz</span>
         <span className="logo_rectangle"></span>
       </div>
-      <div className="username">
+      
+      <div className="menu">
+        <div className="username">
           <input onChange={(e) => setPlayer(e.target.value)} type="text" placeholder="ENTER USERNAME"/>
       </div>
-      <div className="menu">
         <div onClick={() => setDropdown(!dropdown)} className="category">
           <span >SELECT CATEGORY</span>
           <i
@@ -30,34 +38,29 @@ const Home = ({setCategory, setCountdown, setPoints, setPlayer}) => {
           ></i>
           {dropdown && (
             <div className="dropdown">
-              <Link
-                to="/quiz"
-                onClick={() => handleButtons(26)}
-                className="celebrities"
-              >
-                CELEBRITIES
-              </Link>
-              <Link
-                to="/quiz"
-                onClick={() => handleButtons(23)}
-                className="history"
-              >
-                HISTORY
-              </Link>
-              <Link
-                to="/quiz"
-                onClick={() => handleButtons(25)}
-                className="art"
-              >
-                ART
-              </Link>
+                <div onClick={() => handleButtons(26)} className="celebrities">
+                    CELEBRITIES
+                </div >
+                <div onClick={() => handleButtons(23)} className="history">
+                    HISTORY
+                </div>
+                <div onClick={() => handleButtons(25)} className="art">
+                    ART
+                </div>
             </div>
           )}
         </div>
         <div className="q_numbers">
-          <span>NUMBER OF QUESTIONS</span>
-          <i className="fas fa-chevron-down"></i>
+          <span onClick={() => setNumberDropdown(!numberDropdown)}>NUMBER OF QUESTIONS</span>
+          <i onClick={() => setNumberDropdown(!numberDropdown)} className={numberDropdown ? "fas fa-chevron-up" : "fas fa-chevron-down"}></i>
+          <div className={numberDropdown ? "q_num" : "q_num unvisible"}>
+            <input onChange={(e) => setQuestionNumbers(e.target.value)} type="number" max="20" min="2" placeholder="SET NUMBER"/>
+          </div>
         </div>
+        <Link to="/quiz" onClick={handlePlay} className="play">
+          <button>PLAY</button>
+        </Link>
+        
       </div>
     </div>
   );

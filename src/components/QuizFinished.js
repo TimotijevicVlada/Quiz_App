@@ -2,6 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const QuizFinished = ({ points, player }) => {
+
+  
   return (
     <div className="finish">
       <div className="finish_data">

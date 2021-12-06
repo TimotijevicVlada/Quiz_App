@@ -9,74 +9,53 @@ const App = () => {
 
   const [player, setPlayer] = useState("HUMAN PLAYER");
   const [category, setCategory] = useState(26);
+  const [questionNumbers, setQuestionNumbers] = useState(5);
   const [questions, setQuestions] = useState([]);
-  const [answers, setAnswers] = useState([]);
+  const [answers, setAnswers] = useState(null);
   const [questionNum, setQuestionNum] = useState(1);
   const [points, setPoints] = useState(0);
   const [countdown, setCountdown] = useState(20);
+  
 
   //Function that fetch Api data
   const fetchQuestions = useCallback(async () => {
-    setAnswers([]);
     const res = await fetch(
-      `https://opentdb.com/api.php?amount=1&category=${category}&difficulty=medium&type=multiple`
+      `https://opentdb.com/api.php?amount=${questionNumbers}&category=${category}&difficulty=medium&type=multiple`
     );
     const data = await res.json();
     console.log(data.results);
     setQuestions(data.results);
-    const incorectAnsw = data.results[0].incorrect_answers;
-    const correctAnsw = data.results[0].correct_answer;
-    const allAnsw = [...incorectAnsw, correctAnsw];
-    shuffleAnsw(allAnsw);
-  }, [category]);
+  }, [category, questionNumbers]);
 
   useEffect(() => {
     fetchQuestions();
   }, [fetchQuestions]);
 
+
   //Countdown timer
-  const handleCountdown = () => {
+  const handleCountdown = useCallback( () => {
     if (countdown > 0) {
       setCountdown(countdown - 1);
     } else {
-      if (questionNum < 10) {
+      if (questionNum < questionNumbers) {
         setPoints(points - 5);
-        fetchQuestions();
         setQuestionNum(questionNum + 1);
         setCountdown(20);
       } else {
+        setPoints(points - 5);
         document.location.replace("/finish");
       }
     }
-  };
+  }, [countdown, points, questionNum, questionNumbers]);
 
   useEffect(() => {
-    const intervalId = setInterval(() => {
+    const interval = setInterval(() => {
       handleCountdown();
     }, 1000);
-    return () => clearInterval(intervalId);
-  }, [countdown]);
+    return () => clearInterval(interval);
+  }, [handleCountdown]);
 
-  //Function that shuffle the given array of answers
-  const shuffleAnsw = (an) => {
-    for (let i = 0; i < an.length; i++) {
-      let randomNum = Math.floor(Math.random() * an.length);
-      let tempAnsw = "";
-      let currentAnsw = an[i];
-      let randomAnsw = an[randomNum];
-      //swap answers
-      tempAnsw = currentAnsw;
-      an[i] = randomAnsw;
-      an[randomNum] = tempAnsw;
-    }
-    //setAnswers(an);
-    setAnswers([
-      {order: "A", answ: an[0]},
-      {order: "B", answ: an[1]},
-      {order: "C", answ: an[2]},
-      {order: "D", answ: an[3]}
-    ])
-  };
+ 
 
   //Function that get question
   const getQuestionStorage = () => {
@@ -136,6 +115,9 @@ const App = () => {
                 setCountdown={setCountdown} 
                 setPoints={setPoints}
                 setPlayer={setPlayer}
+                setQuestionNum={setQuestionNum}
+                setQuestionNumbers={setQuestionNumbers}
+                fetchQuestions={fetchQuestions}
               />
             }
           />
@@ -144,6 +126,7 @@ const App = () => {
             element={
               <Quiz
                 answers={answers}
+                setAnswers={setAnswers}
                 questions={questions}
                 fetchQuestions={fetchQuestions}
                 questionNum={questionNum}
@@ -153,6 +136,7 @@ const App = () => {
                 countdown={countdown}
                 setCountdown={setCountdown}
                 player={player}
+                questionNumbers={questionNumbers}
               />
             }
           />
