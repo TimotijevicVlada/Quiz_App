@@ -58,7 +58,7 @@ const Quiz = ({
     if (questionNum < questionNumbers) {
       setQuestionNum(questionNum + 1);
       setPoints(points - 5);
-      setCountdown(20);
+      setCountdown(15);
     } else {
       setTimeout(() => {
         document.location.replace("/finish");
@@ -72,7 +72,7 @@ const Quiz = ({
       setPoints(item === currentQuestion.correct_answer ? points + 10 : points - 5);
       setTimeout(() => {
         setQuestionNum(questionNum + 1);
-        setCountdown(20);
+        setCountdown(15);
       }, 1000);
     } else {
       setPoints(item === currentQuestion.correct_answer ? points + 10 : points - 5);

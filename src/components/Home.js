@@ -14,7 +14,7 @@ const Home = ({setCategory, setCountdown, setPoints, setPlayer, setQuestionNum, 
 
   //Function that handle play button
   const handlePlay = () => {
-    setCountdown(20);
+    setCountdown(15);
     setPoints(0);
     setQuestionNum(1);
     fetchQuestions();

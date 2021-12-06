@@ -38,11 +38,11 @@ const App = () => {
       setCountdown(countdown - 1);
     } else {
       if (questionNum < questionNumbers) {
-        setPoints(points - 5);
+        setPoints(points - 10);
         setQuestionNum(questionNum + 1);
-        setCountdown(20);
+        setCountdown(15);
       } else {
-        setPoints(points - 5);
+        setPoints(points - 10);
         document.location.replace("/finish");
       }
     }
