@@ -12,9 +12,9 @@ const App = () => {
   const [answers, setAnswers] = useState(null);
   const [questionNum, setQuestionNum] = useState(1);
   const [points, setPoints] = useState(0);
-  const [countdown, setCountdown] = useState(20);
+  const [countdown, setCountdown] = useState(15);
   const [finishVisible, setFinishVisible] = useState(false);
-  
+  const [stopTimer, setStopTimer] = useState(false);
 
   //Function that fetch Api data
   const fetchQuestions = useCallback(async () => {
@@ -22,7 +22,7 @@ const App = () => {
       `https://opentdb.com/api.php?amount=${questionNumbers}&category=${category}&difficulty=medium&type=multiple`
     );
     const data = await res.json();
-    console.log(data.results);
+    //console.log(data.results);
     setQuestions(data.results);
   }, [category, questionNumbers]);
 
@@ -32,19 +32,22 @@ const App = () => {
 
   //Countdown timer
   const handleCountdown = useCallback(() => {
-    if (countdown > 0) {
-      setCountdown(countdown - 1);
-    } else {
-      if (questionNum < questionNumbers) {
-        setPoints(points - 10);
-        setQuestionNum(questionNum + 1);
-        setCountdown(15);
+    if (stopTimer) {
+      if (countdown > 0) {
+        setCountdown(countdown - 1);
       } else {
-        setPoints(points - 10);
-        setFinishVisible(true);
+        if (questionNum < questionNumbers) {
+          setPoints(points - 10);
+          setQuestionNum(questionNum + 1);
+          setCountdown(15);
+        } else {
+          setPoints(points - 10);
+          setStopTimer(false);
+          setFinishVisible(true);
+        }
       }
     }
-  }, [countdown, points, questionNum, questionNumbers]);
+  }, [countdown, points, questionNum, questionNumbers, stopTimer]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -121,30 +124,32 @@ const App = () => {
                 setQuestionNumbers={setQuestionNumbers}
                 fetchQuestions={fetchQuestions}
                 setFinishVisible={setFinishVisible}
+                setStopTimer={setStopTimer}
               />
             }
           />
-            <Route
-              path="/quiz"
-              element={
-                <Quiz
-                  answers={answers}
-                  setAnswers={setAnswers}
-                  questions={questions}
-                  fetchQuestions={fetchQuestions}
-                  questionNum={questionNum}
-                  setQuestionNum={setQuestionNum}
-                  points={points}
-                  setPoints={setPoints}
-                  countdown={countdown}
-                  setCountdown={setCountdown}
-                  player={player}
-                  questionNumbers={questionNumbers}
-                  finishVisible={finishVisible}
-                  setFinishVisible={setFinishVisible}
-                />
-              }
-            />
+          <Route
+            path="/quiz"
+            element={
+              <Quiz
+                answers={answers}
+                setAnswers={setAnswers}
+                questions={questions}
+                fetchQuestions={fetchQuestions}
+                questionNum={questionNum}
+                setQuestionNum={setQuestionNum}
+                points={points}
+                setPoints={setPoints}
+                countdown={countdown}
+                setCountdown={setCountdown}
+                player={player}
+                questionNumbers={questionNumbers}
+                finishVisible={finishVisible}
+                setFinishVisible={setFinishVisible}
+                setStopTimer={setStopTimer}
+              />
+            }
+          />
         </Routes>
       </div>
     </Router>

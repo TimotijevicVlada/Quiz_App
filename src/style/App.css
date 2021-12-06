@@ -290,19 +290,19 @@
 }
 
 .App .home .menu .q_numbers .q_num input::-webkit-input-placeholder {
-  color: white;
+  color: gray;
 }
 
 .App .home .menu .q_numbers .q_num input:-ms-input-placeholder {
-  color: white;
+  color: gray;
 }
 
 .App .home .menu .q_numbers .q_num input::-ms-input-placeholder {
-  color: white;
+  color: gray;
 }
 
 .App .home .menu .q_numbers .q_num input::placeholder {
-  color: white;
+  color: gray;
 }
 
 .App .home .menu .q_numbers .q_num input:focus {

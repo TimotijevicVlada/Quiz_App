@@ -10,6 +10,7 @@ const Home = ({
   setQuestionNumbers,
   fetchQuestions,
   setFinishVisible,
+  setStopTimer
 }) => {
   const [dropdown, setDropdown] = useState(false);
   const [numberDropdown, setNumberDropdown] = useState(false);
@@ -27,6 +28,7 @@ const Home = ({
     setQuestionNum(1);
     fetchQuestions();
     setFinishVisible(false);
+    setStopTimer(true);
   };
 
   return (
@@ -79,7 +81,7 @@ const Home = ({
               type="number"
               max="20"
               min="2"
-              placeholder="SET NUMBER"
+              placeholder="Write number..."
             />
           </div>
         </div>

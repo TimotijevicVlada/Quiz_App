@@ -20,6 +20,7 @@ const Quiz = ({
   questionNumbers,
   finishVisible,
   setFinishVisible,
+  setStopTimer
 }) => {
   const [percentage, setPercentage] = useState(0);
   const [currentQuestion, setCurrentQuestion] = useState(null);
@@ -67,6 +68,8 @@ const Quiz = ({
       setPoints(points - 5);
       setCountdown(15);
     } else {
+      setPoints(points - 5);
+      setStopTimer(false);
       setTimeout(() => {
         setFinishVisible(true);
       }, 1000);
@@ -87,6 +90,7 @@ const Quiz = ({
       setPoints(
         item === currentQuestion.correct_answer ? points + 10 : points - 5
       );
+      setStopTimer(false);
       setTimeout(() => {
         setFinishVisible(true);
       }, 1000);
