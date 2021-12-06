@@ -179,183 +179,187 @@
       rgba(18, 2, 33, 1) 100%
     );
     position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: center;
-    color: white;
-    .score {
-      position: absolute;
-      left: 0;
-      top: 65px;
-      background-color: rgba(141, 121, 233, 0.2);
+    .quiz_questions {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: center;
       color: white;
-      padding: 25px 50px;
-      border-radius: 0px 80px 80px 0px;
-      .human_player {
+      .score {
+        position: absolute;
+        left: 0;
+        top: 65px;
+        background-color: rgba(141, 121, 233, 0.2);
+        color: white;
+        padding: 25px 50px;
+        border-radius: 0px 80px 80px 0px;
+        .human_player {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          .pts {
+            font-weight: 700;
+            font-size: 25px;
+            font-family: "Inter";
+          }
+          .player_name {
+            font-weight: 700;
+            font-size: 16px;
+            letter-spacing: 3px;
+          }
+        }
+      }
+      .timer {
+        position: absolute;
+        right: 0;
+        top: 65px;
+        font-family: "Inter";
+        font-weight: 700;
+        color: white;
+        width: 250px;
+        height: 108px;
+        background-color: #9e46fd;
+        border-radius: 94px 0px 0px 94px;
+        display: flex;
+        align-items: center;
+        padding-left: 60px;
+        i {
+          font-size: 50px;
+          margin-right: 20px;
+        }
+        span {
+          font-size: 35px;
+        }
+        .red {
+          color: red;
+        }
+      }
+      .quiz_content {
         display: flex;
         flex-direction: column;
         align-items: center;
-        .pts {
-          font-weight: 700;
-          font-size: 25px;
-          font-family: "Inter";
+        margin-bottom: 10%;
+        width: 100%;
+        .q_number {
+          margin-bottom: 25px;
+          span {
+            font-size: 20px;
+            font-weight: 700;
+          }
         }
-        .player_name {
-          font-weight: 700;
-          font-size: 16px;
-          letter-spacing: 3px;
+        .question {
+          text-align: center;
+          span {
+            font-family: "Inter";
+            font-weight: bold;
+            font-size: 34px;
+          }
+        }
+        .buttons {
+          width: 100%;
+          display: flex;
+          justify-content: space-evenly;
+          margin-top: 70px;
+          div {
+            min-width: 350px;
+            height: 108px;
+            border-radius: 94px;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            border: 2px solid #8d79e9;
+            cursor: pointer;
+            padding-right: 10px;
+            &:hover {
+              background-color: rgba(141, 121, 233, 0.2);
+            }
+            .order_btn {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              background-color: rgba(141, 121, 233, 0.2);
+              font-size: 25px;
+              font-family: "Inter";
+              font-weight: 700;
+              width: 55px;
+              height: 55px;
+              border-radius: 50%;
+              margin-left: 30px;
+              margin-right: 10px;
+            }
+            .answer {
+              font-size: 25px;
+              font-weight: 600;
+              font-family: "Inter";
+            }
+          }
+          .true {
+            background-color: green;
+          }
+          .false {
+            background-color: red;
+          }
         }
       }
-    }
-    .timer {
-      position: absolute;
-      right: 0;
-      top: 65px;
-      font-family: "Inter";
-      font-weight: 700;
-      color: white;
-      width: 250px;
-      height: 108px;
-      background-color: #9e46fd;
-      border-radius: 94px 0px 0px 94px;
-      display: flex;
-      align-items: center;
-      padding-left: 60px;
-      i {
-        font-size: 50px;
-        margin-right: 20px;
-      }
-      span {
-        font-size: 35px;
-      }
-      .red {
-        color: red;
-      }
-    }
-    .quiz_content {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin-bottom: 10%;
-      width: 100%;
-      .q_number {
-        margin-bottom: 25px;
+      .skip {
+        margin-bottom: 60px;
+        border-radius: 30px;
+        background-color: rgba(141, 121, 233, 0.2);
+        padding: 10px 25px;
+        cursor: pointer;
+        &:hover {
+          background-color: rgba(141, 121, 233, 0.5);
+        }
         span {
           font-size: 20px;
-          font-weight: 700;
-        }
-      }
-      .question {
-        text-align: center;
-        span {
+          font-weight: 900;
           font-family: "Inter";
-          font-weight: bold;
-          font-size: 34px;
+          letter-spacing: 2px;
         }
       }
-      .buttons {
+      .progress_bar {
+        position: absolute;
+        bottom: 0;
         width: 100%;
-        display: flex;
-        justify-content: space-evenly;
-        margin-top: 70px;
-        div {
-          min-width: 350px;
-          height: 108px;
-          border-radius: 94px;
-          display: flex;
-          justify-content: flex-start;
-          align-items: center;
-          border: 2px solid #8d79e9;
-          cursor: pointer;
-          padding-right: 10px;
-          &:hover {
-            background-color: rgba(141, 121, 233, 0.2);
-          }
-          .order_btn {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: rgba(141, 121, 233, 0.2);
-            font-size: 25px;
-            font-family: "Inter";
-            font-weight: 700;
-            width: 55px;
-            height: 55px;
-            border-radius: 50%;
-            margin-left: 30px;
-            margin-right: 10px;
-          }
-          .answer {
-            font-size: 25px;
-            font-weight: 600;
-            font-family: "Inter";
-          }
+        height: 15px;
+        background-color: rgba(141, 121, 233, 0.2);
+        .percentage {
+          height: 100%;
+          background-color: #9e46fd;
+          transition: all 0.4s ease;
         }
-        .true {
-          background-color: green;
+        .pct_bar_1 {
+          width: 10%;
         }
-        .false {
-          background-color: red;
+        .pct_bar_2 {
+          width: 20%;
         }
-      }
-    }
-    .skip {
-      margin-bottom: 60px;
-      border-radius: 30px;
-      background-color: rgba(141, 121, 233, 0.2);
-      padding: 10px 25px;
-      cursor: pointer;
-      &:hover {
-        background-color: rgba(141, 121, 233, 0.5);
-      }
-      span {
-        font-size: 20px;
-        font-weight: 900;
-        font-family: "Inter";
-        letter-spacing: 2px;
-      }
-    }
-    .progress_bar {
-      position: absolute;
-      bottom: 0;
-      width: 100%;
-      height: 15px;
-      background-color: rgba(141, 121, 233, 0.2);
-      .percentage {
-        height: 100%;
-        background-color: #9e46fd;
-        transition: all 0.4s ease;
-      }
-      .pct_bar_1 {
-        width: 10%;
-      }
-      .pct_bar_2 {
-        width: 20%;
-      }
-      .pct_bar_3 {
-        width: 30%;
-      }
-      .pct_bar_4 {
-        width: 40%;
-      }
-      .pct_bar_5 {
-        width: 50%;
-      }
-      .pct_bar_6 {
-        width: 60%;
-      }
-      .pct_bar_7 {
-        width: 70%;
-      }
-      .pct_bar_8 {
-        width: 80%;
-      }
-      .pct_bar_9 {
-        width: 90%;
-      }
-      .pct_bar_10 {
-        width: 100%;
+        .pct_bar_3 {
+          width: 30%;
+        }
+        .pct_bar_4 {
+          width: 40%;
+        }
+        .pct_bar_5 {
+          width: 50%;
+        }
+        .pct_bar_6 {
+          width: 60%;
+        }
+        .pct_bar_7 {
+          width: 70%;
+        }
+        .pct_bar_8 {
+          width: 80%;
+        }
+        .pct_bar_9 {
+          width: 90%;
+        }
+        .pct_bar_10 {
+          width: 100%;
+        }
       }
     }
   }

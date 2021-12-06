@@ -2,11 +2,9 @@ import React, { useState, useEffect, useCallback } from "react";
 import "./style/App.css";
 import Home from "./components/Home";
 import Quiz from "./components/Quiz";
-import QuizFinished from "./components/QuizFinished";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 const App = () => {
-
   const [player, setPlayer] = useState("HUMAN PLAYER");
   const [category, setCategory] = useState(26);
   const [questionNumbers, setQuestionNumbers] = useState(5);
@@ -15,6 +13,7 @@ const App = () => {
   const [questionNum, setQuestionNum] = useState(1);
   const [points, setPoints] = useState(0);
   const [countdown, setCountdown] = useState(20);
+  const [finishVisible, setFinishVisible] = useState(false);
   
 
   //Function that fetch Api data
@@ -31,9 +30,8 @@ const App = () => {
     fetchQuestions();
   }, [fetchQuestions]);
 
-
   //Countdown timer
-  const handleCountdown = useCallback( () => {
+  const handleCountdown = useCallback(() => {
     if (countdown > 0) {
       setCountdown(countdown - 1);
     } else {
@@ -43,7 +41,7 @@ const App = () => {
         setCountdown(15);
       } else {
         setPoints(points - 10);
-        document.location.replace("/finish");
+        setFinishVisible(true);
       }
     }
   }, [countdown, points, questionNum, questionNumbers]);
@@ -54,8 +52,6 @@ const App = () => {
     }, 1000);
     return () => clearInterval(interval);
   }, [handleCountdown]);
-
- 
 
   //Function that get question
   const getQuestionStorage = () => {
@@ -82,21 +78,27 @@ const App = () => {
   //Save points to the local storage
   const getPlayerValue = () => {
     if (localStorage.getItem("points") === null) {
-      localStorage.setItem("points", JSON.stringify({name: "HUMAN PLAYER", points: 0}));
+      localStorage.setItem(
+        "points",
+        JSON.stringify({ name: "HUMAN PLAYER", points: 0 })
+      );
     } else {
       const points = JSON.parse(localStorage.getItem("points"));
       setPoints(points.points);
       setPlayer(points.name);
     }
-  }
+  };
 
   useEffect(() => {
     getPlayerValue();
-  }, [])
+  }, []);
 
   //Function that save favorite item to local storage
   const savePlayerValue = useCallback(() => {
-    localStorage.setItem("points", JSON.stringify({name: player, points: points}));
+    localStorage.setItem(
+      "points",
+      JSON.stringify({ name: player, points: points })
+    );
   }, [points, player]);
 
   useEffect(() => {
@@ -110,37 +112,39 @@ const App = () => {
           <Route
             path="/"
             element={
-              <Home 
-                setCategory={setCategory} 
-                setCountdown={setCountdown} 
+              <Home
+                setCategory={setCategory}
+                setCountdown={setCountdown}
                 setPoints={setPoints}
                 setPlayer={setPlayer}
                 setQuestionNum={setQuestionNum}
                 setQuestionNumbers={setQuestionNumbers}
                 fetchQuestions={fetchQuestions}
+                setFinishVisible={setFinishVisible}
               />
             }
           />
-          <Route
-            path="/quiz"
-            element={
-              <Quiz
-                answers={answers}
-                setAnswers={setAnswers}
-                questions={questions}
-                fetchQuestions={fetchQuestions}
-                questionNum={questionNum}
-                setQuestionNum={setQuestionNum}
-                points={points}
-                setPoints={setPoints}
-                countdown={countdown}
-                setCountdown={setCountdown}
-                player={player}
-                questionNumbers={questionNumbers}
-              />
-            }
-          />
-          <Route path="/finish" element={<QuizFinished points={points} player={player}/>} />
+            <Route
+              path="/quiz"
+              element={
+                <Quiz
+                  answers={answers}
+                  setAnswers={setAnswers}
+                  questions={questions}
+                  fetchQuestions={fetchQuestions}
+                  questionNum={questionNum}
+                  setQuestionNum={setQuestionNum}
+                  points={points}
+                  setPoints={setPoints}
+                  countdown={countdown}
+                  setCountdown={setCountdown}
+                  player={player}
+                  questionNumbers={questionNumbers}
+                  finishVisible={finishVisible}
+                  setFinishVisible={setFinishVisible}
+                />
+              }
+            />
         </Routes>
       </div>
     </Router>

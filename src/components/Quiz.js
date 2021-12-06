@@ -1,4 +1,10 @@
 import React, { useState, useEffect, useCallback } from "react";
+import Player from "./Player";
+import Qnumber from "./Qnumber";
+import Question from "./Question";
+import Answers from "./Answers";
+import ProgressBar from "./ProgressBar";
+import QuizFinished from "./QuizFinished";
 
 const Quiz = ({
   answers,
@@ -12,6 +18,8 @@ const Quiz = ({
   setCountdown,
   player,
   questionNumbers,
+  finishVisible,
+  setFinishVisible,
 }) => {
   const [percentage, setPercentage] = useState(0);
   const [currentQuestion, setCurrentQuestion] = useState(null);
@@ -20,7 +28,6 @@ const Quiz = ({
   useEffect(() => {
     setCurrentQuestion(questions[questionNum - 1]);
   }, [questions, questionNum]);
-
 
   //Funtion that handle current answer and shuffle it
   const handleCurrentAnswers = useCallback(() => {
@@ -61,7 +68,7 @@ const Quiz = ({
       setCountdown(15);
     } else {
       setTimeout(() => {
-        document.location.replace("/finish");
+        setFinishVisible(true);
       }, 1000);
     }
   };
@@ -69,15 +76,19 @@ const Quiz = ({
   //Funtion that handle choosen answer
   const handleAnswer = (item) => {
     if (questionNum < questionNumbers) {
-      setPoints(item === currentQuestion.correct_answer ? points + 10 : points - 5);
+      setPoints(
+        item === currentQuestion.correct_answer ? points + 10 : points - 5
+      );
       setTimeout(() => {
         setQuestionNum(questionNum + 1);
         setCountdown(15);
       }, 1000);
     } else {
-      setPoints(item === currentQuestion.correct_answer ? points + 10 : points - 5);
+      setPoints(
+        item === currentQuestion.correct_answer ? points + 10 : points - 5
+      );
       setTimeout(() => {
-        document.location.replace("/finish");
+        setFinishVisible(true);
       }, 1000);
     }
   };
@@ -94,43 +105,35 @@ const Quiz = ({
 
   return (
     <div className="quiz">
-      <div className="score">
-        <div className="human_player">
-          <span className="pts">{points} pts</span>
-          <span className="player_name">{player}</span>
+      {!finishVisible ? (
+        <div className="quiz_questions">
+          <div className="score">
+            <Player points={points} player={player} />
+          </div>
+          <div className="timer">
+            <i
+              className={countdown < 6 ? "far fa-clock red" : "far fa-clock"}
+            ></i>
+            <span className={countdown < 6 ? "time red" : "time"}>
+              {countdown}
+            </span>
+          </div>
+          <div className="quiz_content">
+            <Qnumber
+              questionNum={questionNum}
+              questionNumbers={questionNumbers}
+            />
+            <Question currentQuestion={currentQuestion} />
+            <Answers answers={answers} handleAnswer={handleAnswer} />
+          </div>
+          <div onClick={handleSkip} className="skip">
+            <span>SKIP</span>
+          </div>
+          <ProgressBar percentage={percentage} questionNum={questionNum} />
         </div>
-      </div>
-      <div className="timer">
-        <i className={countdown < 6 ? "far fa-clock red" : "far fa-clock"}></i>
-        <span className={countdown < 6 ? "time red" : "time"}>{countdown}</span>
-      </div>
-      <div className="quiz_content">
-        <div className="q_number">
-          <span>
-            QUESTION {questionNum}/{questionNumbers}
-          </span>
-        </div>
-        <div className="question">
-          <span>{currentQuestion?.question}</span>
-        </div>
-        <div className="buttons">
-          {answers?.map((item) => (
-            <div onClick={() => handleAnswer(item.answ)} key={item.answ}>
-              <span className="order_btn">{item.order}</span>
-              <span className="answer">{item.answ}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-      <div onClick={handleSkip} className="skip">
-        <span>SKIP</span>
-      </div>
-      <div className="progress_bar">
-        <div
-          className="percentage"
-          style={{ width: `${percentage * questionNum}%` }}
-        ></div>
-      </div>
+      ) : (
+        <QuizFinished points={points} player={player}/>
+      )}
     </div>
   );
 };
