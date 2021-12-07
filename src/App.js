@@ -16,6 +16,8 @@ const App = () => {
   const [finishVisible, setFinishVisible] = useState(false);
   const [stopTimer, setStopTimer] = useState(false);
   const [totalTime, setTotalTime] = useState(0);
+  const [correctAnswerNumber, setCorrectAnswerNumber] = useState(0);
+  const [wrongAnswerNumber, setWrongAnswerNumber] = useState(0);
 
 
   //Function that fetch Api data
@@ -43,14 +45,16 @@ const App = () => {
           setPoints(points - 10);
           setQuestionNum(questionNum + 1);
           setCountdown(15);
+          setWrongAnswerNumber(wrongAnswerNumber + 1);
         } else {
           setPoints(points - 10);
+          setWrongAnswerNumber(wrongAnswerNumber + 1);
           setStopTimer(false);
           setFinishVisible(true);
         }
       }
     }
-  }, [countdown, points, questionNum, questionNumbers, stopTimer, totalTime]);
+  }, [countdown, points, questionNum, questionNumbers, stopTimer, totalTime, wrongAnswerNumber]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -130,6 +134,8 @@ const App = () => {
                 setFinishVisible={setFinishVisible}
                 setStopTimer={setStopTimer}
                 setTotalTime={setTotalTime}
+                setCorrectAnswerNumber={setCorrectAnswerNumber}
+                setWrongAnswerNumber={setWrongAnswerNumber}
               />
             }
           />
@@ -153,6 +159,10 @@ const App = () => {
                 setFinishVisible={setFinishVisible}
                 setStopTimer={setStopTimer}
                 totalTime={totalTime}
+                correctAnswerNumber={correctAnswerNumber}
+                wrongAnswerNumber={wrongAnswerNumber}
+                setCorrectAnswerNumber={setCorrectAnswerNumber}
+                setWrongAnswerNumber={setWrongAnswerNumber}
               />
             }
           />

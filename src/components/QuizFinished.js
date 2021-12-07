@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const QuizFinished = ({ points, player, totalTime }) => {
+const QuizFinished = ({ points, player, totalTime, correctAnswerNumber, wrongAnswerNumber }) => {
 
   
   return (
@@ -12,6 +12,12 @@ const QuizFinished = ({ points, player, totalTime }) => {
         </div>
         <div className="finish_pts">
           <span>Points: {points}</span>
+        </div>
+        <div className="correct_answer">
+          <span>Correct answers: {correctAnswerNumber}</span>
+        </div>
+        <div className="wrong_answer">
+          <span>Wrong answers: {wrongAnswerNumber}</span>
         </div>
         <div className="finish_time">
           <span>Total seconds: {totalTime}</span>

@@ -9,7 +9,6 @@ import useSound from "use-sound";
 import correct from "../assets/correct_answer.mp3";
 import wrong from "../assets/wrong_answer.mp3";
 
-
 const Quiz = ({
   answers,
   setAnswers,
@@ -26,10 +25,13 @@ const Quiz = ({
   setFinishVisible,
   setStopTimer,
   totalTime,
+  setCorrectAnswerNumber,
+  setWrongAnswerNumber,
+  correctAnswerNumber,
+  wrongAnswerNumber,
 }) => {
   const [percentage, setPercentage] = useState(0);
   const [currentQuestion, setCurrentQuestion] = useState(null);
-
 
   const [correctSound] = useSound(correct);
   const [wrongSound] = useSound(wrong);
@@ -76,9 +78,11 @@ const Quiz = ({
       setQuestionNum(questionNum + 1);
       setPoints(points - 5);
       setCountdown(15);
+      setWrongAnswerNumber(wrongAnswerNumber + 1);
     } else {
       setPoints(points - 5);
       setStopTimer(false);
+      setWrongAnswerNumber(wrongAnswerNumber + 1);
       setTimeout(() => {
         setFinishVisible(true);
       }, 1000);
@@ -91,9 +95,11 @@ const Quiz = ({
       if (item === currentQuestion.correct_answer) {
         correctSound();
         setPoints(points + 10);
+        setCorrectAnswerNumber(correctAnswerNumber + 1);
       } else {
         wrongSound();
         setPoints(points - 5);
+        setWrongAnswerNumber(wrongAnswerNumber + 1);
       }
       setTimeout(() => {
         setQuestionNum(questionNum + 1);
@@ -103,9 +109,11 @@ const Quiz = ({
       if (item === currentQuestion.correct_answer) {
         setPoints(points + 10);
         correctSound();
+        setCorrectAnswerNumber(correctAnswerNumber + 1);
       } else {
         setPoints(points - 5);
         wrongSound();
+        setWrongAnswerNumber(wrongAnswerNumber + 1);
       }
       setStopTimer(false);
       setTimeout(() => {
@@ -153,7 +161,13 @@ const Quiz = ({
           <ProgressBar percentage={percentage} questionNum={questionNum} />
         </div>
       ) : (
-        <QuizFinished points={points} player={player} totalTime={totalTime} />
+        <QuizFinished
+          points={points}
+          player={player}
+          totalTime={totalTime}
+          correctAnswerNumber={correctAnswerNumber}
+          wrongAnswerNumber={wrongAnswerNumber}
+        />
       )}
     </div>
   );

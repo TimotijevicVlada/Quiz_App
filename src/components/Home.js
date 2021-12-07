@@ -14,7 +14,9 @@ const Home = ({
   setFinishVisible,
   setStopTimer,
   setTotalTime,
-  questionNumbers
+  questionNumbers,
+  setCorrectAnswerNumber,
+  setWrongAnswerNumber
 }) => {
   const [dropdown, setDropdown] = useState(false);
   const [numberDropdown, setNumberDropdown] = useState(false);
@@ -45,6 +47,8 @@ const Home = ({
     setFinishVisible(false);
     setStopTimer(true);
     setTotalTime(0);
+    setCorrectAnswerNumber(0);
+    setWrongAnswerNumber(0);
   };
 
   return (
