@@ -9,6 +9,7 @@ import useSound from "use-sound";
 import correct from "../assets/correct_answer.mp3";
 import wrong from "../assets/wrong_answer.mp3";
 
+
 const Quiz = ({
   answers,
   setAnswers,
@@ -28,6 +29,7 @@ const Quiz = ({
 }) => {
   const [percentage, setPercentage] = useState(0);
   const [currentQuestion, setCurrentQuestion] = useState(null);
+
 
   const [correctSound] = useSound(correct);
   const [wrongSound] = useSound(wrong);

@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import useSound from "use-sound";
+import startMusic from "../assets/start_sound.mp3";
 
 const Home = ({
   setCategory,
@@ -11,19 +13,31 @@ const Home = ({
   fetchQuestions,
   setFinishVisible,
   setStopTimer,
-  setTotalTime
+  setTotalTime,
+  questionNumbers
 }) => {
   const [dropdown, setDropdown] = useState(false);
   const [numberDropdown, setNumberDropdown] = useState(false);
+  const [selectCategory, setSelectCategory] = useState("SELECT CATEGORY");
+
+  const [startSound] = useSound(startMusic);
 
   //Function that handle button to choose categories
   const handleButtons = (number) => {
+    if(number === 26) {
+      setSelectCategory("CELEBRITIES"); 
+    } else if(number === 23) {
+      setSelectCategory("HISTORY"); 
+    } else {
+      setSelectCategory("ART"); 
+    }
     setDropdown(false);
     setCategory(number);
   };
 
   //Function that handle play button
   const handlePlay = () => {
+    startSound();
     setCountdown(15);
     setPoints(0);
     setQuestionNum(1);
@@ -49,7 +63,7 @@ const Home = ({
           />
         </div>
         <div onClick={() => setDropdown(!dropdown)} className="category">
-          <span>SELECT CATEGORY</span>
+          <span>{selectCategory}</span>
           <i
             className={dropdown ? "fas fa-chevron-up" : "fas fa-chevron-down"}
           ></i>
@@ -68,15 +82,18 @@ const Home = ({
           )}
         </div>
         <div className="q_numbers">
-          <span onClick={() => setNumberDropdown(!numberDropdown)}>
-            NUMBER OF QUESTIONS
-          </span>
-          <i
+          <div
             onClick={() => setNumberDropdown(!numberDropdown)}
-            className={
-              numberDropdown ? "fas fa-chevron-up" : "fas fa-chevron-down"
-            }
-          ></i>
+            className="q_numbers_wrapper"
+          >
+            <span>NUMBER OF QUESTIONS {questionNumbers}</span>
+            <i
+              className={
+                numberDropdown ? "fas fa-chevron-up" : "fas fa-chevron-down"
+              }
+            ></i>
+          </div>
+
           <div className={numberDropdown ? "q_num" : "q_num unvisible"}>
             <input
               onChange={(e) => setQuestionNumbers(e.target.value)}

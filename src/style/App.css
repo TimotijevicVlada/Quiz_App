@@ -65,7 +65,6 @@
 }
 
 .App .home .menu .category,
-.App .home .menu .q_numbers,
 .App .home .menu .username,
 .App .home .menu .play {
   width: 602px;
@@ -87,7 +86,6 @@
 }
 
 .App .home .menu .category span,
-.App .home .menu .q_numbers span,
 .App .home .menu .username span,
 .App .home .menu .play span {
   font-size: 30px;
@@ -95,19 +93,17 @@
 }
 
 .App .home .menu .category i,
-.App .home .menu .q_numbers i,
 .App .home .menu .username i,
 .App .home .menu .play i {
   font-size: 30px;
 }
 
 .App .home .menu .category .dropdown,
-.App .home .menu .q_numbers .dropdown,
 .App .home .menu .username .dropdown,
 .App .home .menu .play .dropdown {
   position: absolute;
   width: 602px;
-  bottom: -270px;
+  bottom: -280px;
   left: -2px;
   z-index: 2;
   overflow: hidden;
@@ -116,9 +112,6 @@
 .App .home .menu .category .dropdown .celebrities,
 .App .home .menu .category .dropdown .history,
 .App .home .menu .category .dropdown .art,
-.App .home .menu .q_numbers .dropdown .celebrities,
-.App .home .menu .q_numbers .dropdown .history,
-.App .home .menu .q_numbers .dropdown .art,
 .App .home .menu .username .dropdown .celebrities,
 .App .home .menu .username .dropdown .history,
 .App .home .menu .username .dropdown .art,
@@ -143,9 +136,6 @@
 .App .home .menu .category .dropdown .celebrities:hover,
 .App .home .menu .category .dropdown .history:hover,
 .App .home .menu .category .dropdown .art:hover,
-.App .home .menu .q_numbers .dropdown .celebrities:hover,
-.App .home .menu .q_numbers .dropdown .history:hover,
-.App .home .menu .q_numbers .dropdown .art:hover,
 .App .home .menu .username .dropdown .celebrities:hover,
 .App .home .menu .username .dropdown .history:hover,
 .App .home .menu .username .dropdown .art:hover,
@@ -156,14 +146,12 @@
 }
 
 .App .home .menu .category .dropdown .unvisible,
-.App .home .menu .q_numbers .dropdown .unvisible,
 .App .home .menu .username .dropdown .unvisible,
 .App .home .menu .play .dropdown .unvisible {
   display: none;
 }
 
 .App .home .menu .category .dropdown .celebrities,
-.App .home .menu .q_numbers .dropdown .celebrities,
 .App .home .menu .username .dropdown .celebrities,
 .App .home .menu .play .dropdown .celebrities {
   border: 2px solid #8d79e9;
@@ -171,7 +159,6 @@
 }
 
 .App .home .menu .category .dropdown .history,
-.App .home .menu .q_numbers .dropdown .history,
 .App .home .menu .username .dropdown .history,
 .App .home .menu .play .dropdown .history {
   border-left: 2px solid #8d79e9;
@@ -179,7 +166,6 @@
 }
 
 .App .home .menu .category .dropdown .art,
-.App .home .menu .q_numbers .dropdown .art,
 .App .home .menu .username .dropdown .art,
 .App .home .menu .play .dropdown .art {
   border: 2px solid #8d79e9;
@@ -187,7 +173,6 @@
 }
 
 .App .home .menu .category input,
-.App .home .menu .q_numbers input,
 .App .home .menu .username input,
 .App .home .menu .play input {
   width: 100%;
@@ -199,7 +184,6 @@
 }
 
 .App .home .menu .category input::-webkit-input-placeholder,
-.App .home .menu .q_numbers input::-webkit-input-placeholder,
 .App .home .menu .username input::-webkit-input-placeholder,
 .App .home .menu .play input::-webkit-input-placeholder {
   border: none;
@@ -207,7 +191,6 @@
 }
 
 .App .home .menu .category input:-ms-input-placeholder,
-.App .home .menu .q_numbers input:-ms-input-placeholder,
 .App .home .menu .username input:-ms-input-placeholder,
 .App .home .menu .play input:-ms-input-placeholder {
   border: none;
@@ -215,7 +198,6 @@
 }
 
 .App .home .menu .category input::-ms-input-placeholder,
-.App .home .menu .q_numbers input::-ms-input-placeholder,
 .App .home .menu .username input::-ms-input-placeholder,
 .App .home .menu .play input::-ms-input-placeholder {
   border: none;
@@ -223,7 +205,6 @@
 }
 
 .App .home .menu .category input::placeholder,
-.App .home .menu .q_numbers input::placeholder,
 .App .home .menu .username input::placeholder,
 .App .home .menu .play input::placeholder {
   border: none;
@@ -231,14 +212,12 @@
 }
 
 .App .home .menu .category input:focus,
-.App .home .menu .q_numbers input:focus,
 .App .home .menu .username input:focus,
 .App .home .menu .play input:focus {
   outline: none;
 }
 
 .App .home .menu .category button,
-.App .home .menu .q_numbers button,
 .App .home .menu .username button,
 .App .home .menu .play button {
   width: 100%;
@@ -261,12 +240,48 @@
 
 .App .home .menu .q_numbers {
   position: relative;
+  width: 602px;
+  border: 2px solid #8d79e9;
+  border-radius: 94px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  cursor: pointer;
+  position: relative;
+  margin: 10px 0px;
   z-index: 1;
+}
+
+.App .home .menu .q_numbers .q_numbers_wrapper {
+  width: 100%;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding: 20px 60px;
+}
+
+.App .home .menu .q_numbers .q_numbers_wrapper span {
+  font-size: 30px;
+  font-family: "Inter";
+}
+
+.App .home .menu .q_numbers .q_numbers_wrapper i {
+  font-size: 30px;
 }
 
 .App .home .menu .q_numbers .q_num {
   position: absolute;
-  bottom: -102px;
+  bottom: -104px;
   left: -2px;
   width: 602px;
   border: 2px solid #8d79e9;
@@ -453,7 +468,7 @@
   margin-top: 70px;
 }
 
-.App .quiz .quiz_questions .quiz_content .buttons div {
+.App .quiz .quiz_questions .quiz_content .buttons .answers {
   min-width: 350px;
   height: 108px;
   border-radius: 94px;
@@ -471,11 +486,11 @@
   padding-right: 10px;
 }
 
-.App .quiz .quiz_questions .quiz_content .buttons div:hover {
+.App .quiz .quiz_questions .quiz_content .buttons .answers:hover {
   background-color: rgba(141, 121, 233, 0.2);
 }
 
-.App .quiz .quiz_questions .quiz_content .buttons div .order_btn {
+.App .quiz .quiz_questions .quiz_content .buttons .answers .order_btn {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -496,17 +511,17 @@
   margin-right: 10px;
 }
 
-.App .quiz .quiz_questions .quiz_content .buttons div .answer {
+.App .quiz .quiz_questions .quiz_content .buttons .answers .answer {
   font-size: 25px;
   font-weight: 600;
   font-family: "Inter";
 }
 
-.App .quiz .quiz_questions .quiz_content .buttons .true {
+.App .quiz .quiz_questions .quiz_content .buttons .green {
   background-color: green;
 }
 
-.App .quiz .quiz_questions .quiz_content .buttons .false {
+.App .quiz .quiz_questions .quiz_content .buttons .red {
   background-color: red;
 }
 

@@ -45,7 +45,6 @@
       display: flex;
       flex-direction: column;
       .category,
-      .q_numbers,
       .username,
       .play {
         width: 602px;
@@ -68,7 +67,7 @@
         .dropdown {
           position: absolute;
           width: 602px;
-          bottom: -270px;
+          bottom: -280px;
           left: -2px;
           z-index: 2;
           overflow: hidden;
@@ -138,10 +137,33 @@
       }
       .q_numbers {
         position: relative;
+        width: 602px;
+        border: 2px solid #8d79e9;
+        border-radius: 94px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        cursor: pointer;
+        position: relative;
+        margin: 10px 0px;
         z-index: 1;
+        .q_numbers_wrapper {
+          width: 100%;
+          height: 100%;
+          display: flex;
+          justify-content: space-between;
+          padding: 20px 60px;
+          span {
+            font-size: 30px;
+            font-family: "Inter";
+          }
+          i {
+            font-size: 30px;
+          }
+        }
         .q_num {
           position: absolute;
-          bottom: -102px;
+          bottom: -104px;
           left: -2px;
           width: 602px;
           border: 2px solid #8d79e9;
@@ -262,7 +284,7 @@
           display: flex;
           justify-content: space-evenly;
           margin-top: 70px;
-          div {
+          .answers {
             min-width: 350px;
             height: 108px;
             border-radius: 94px;
@@ -295,10 +317,10 @@
               font-family: "Inter";
             }
           }
-          .true {
+          .green {
             background-color: green;
           }
-          .false {
+          .red {
             background-color: red;
           }
         }

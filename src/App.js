@@ -17,6 +17,7 @@ const App = () => {
   const [stopTimer, setStopTimer] = useState(false);
   const [totalTime, setTotalTime] = useState(0);
 
+
   //Function that fetch Api data
   const fetchQuestions = useCallback(async () => {
     const res = await fetch(
@@ -123,6 +124,7 @@ const App = () => {
                 setPoints={setPoints}
                 setPlayer={setPlayer}
                 setQuestionNum={setQuestionNum}
+                questionNumbers={questionNumbers}
                 setQuestionNumbers={setQuestionNumbers}
                 fetchQuestions={fetchQuestions}
                 setFinishVisible={setFinishVisible}
