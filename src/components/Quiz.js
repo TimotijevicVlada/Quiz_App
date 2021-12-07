@@ -5,6 +5,9 @@ import Question from "./Question";
 import Answers from "./Answers";
 import ProgressBar from "./ProgressBar";
 import QuizFinished from "./QuizFinished";
+import useSound from "use-sound";
+import correct from "../assets/correct_answer.mp3";
+import wrong from "../assets/wrong_answer.mp3";
 
 const Quiz = ({
   answers,
@@ -20,10 +23,14 @@ const Quiz = ({
   questionNumbers,
   finishVisible,
   setFinishVisible,
-  setStopTimer
+  setStopTimer,
+  totalTime,
 }) => {
   const [percentage, setPercentage] = useState(0);
   const [currentQuestion, setCurrentQuestion] = useState(null);
+
+  const [correctSound] = useSound(correct);
+  const [wrongSound] = useSound(wrong);
 
   //Setting the current question
   useEffect(() => {
@@ -79,17 +86,25 @@ const Quiz = ({
   //Funtion that handle choosen answer
   const handleAnswer = (item) => {
     if (questionNum < questionNumbers) {
-      setPoints(
-        item === currentQuestion.correct_answer ? points + 10 : points - 5
-      );
+      if (item === currentQuestion.correct_answer) {
+        correctSound();
+        setPoints(points + 10);
+      } else {
+        wrongSound();
+        setPoints(points - 5);
+      }
       setTimeout(() => {
         setQuestionNum(questionNum + 1);
         setCountdown(15);
       }, 1000);
     } else {
-      setPoints(
-        item === currentQuestion.correct_answer ? points + 10 : points - 5
-      );
+      if (item === currentQuestion.correct_answer) {
+        setPoints(points + 10);
+        correctSound();
+      } else {
+        setPoints(points - 5);
+        wrongSound();
+      }
       setStopTimer(false);
       setTimeout(() => {
         setFinishVisible(true);
@@ -136,7 +151,7 @@ const Quiz = ({
           <ProgressBar percentage={percentage} questionNum={questionNum} />
         </div>
       ) : (
-        <QuizFinished points={points} player={player}/>
+        <QuizFinished points={points} player={player} totalTime={totalTime} />
       )}
     </div>
   );

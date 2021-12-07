@@ -15,6 +15,7 @@ const App = () => {
   const [countdown, setCountdown] = useState(15);
   const [finishVisible, setFinishVisible] = useState(false);
   const [stopTimer, setStopTimer] = useState(false);
+  const [totalTime, setTotalTime] = useState(0);
 
   //Function that fetch Api data
   const fetchQuestions = useCallback(async () => {
@@ -35,6 +36,7 @@ const App = () => {
     if (stopTimer) {
       if (countdown > 0) {
         setCountdown(countdown - 1);
+        setTotalTime(totalTime + 1);
       } else {
         if (questionNum < questionNumbers) {
           setPoints(points - 10);
@@ -47,7 +49,7 @@ const App = () => {
         }
       }
     }
-  }, [countdown, points, questionNum, questionNumbers, stopTimer]);
+  }, [countdown, points, questionNum, questionNumbers, stopTimer, totalTime]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -125,6 +127,7 @@ const App = () => {
                 fetchQuestions={fetchQuestions}
                 setFinishVisible={setFinishVisible}
                 setStopTimer={setStopTimer}
+                setTotalTime={setTotalTime}
               />
             }
           />
@@ -147,6 +150,7 @@ const App = () => {
                 finishVisible={finishVisible}
                 setFinishVisible={setFinishVisible}
                 setStopTimer={setStopTimer}
+                totalTime={totalTime}
               />
             }
           />

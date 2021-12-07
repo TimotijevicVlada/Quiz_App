@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const QuizFinished = ({ points, player }) => {
+const QuizFinished = ({ points, player, totalTime }) => {
 
   
   return (
@@ -12,6 +12,9 @@ const QuizFinished = ({ points, player }) => {
         </div>
         <div className="finish_pts">
           <span>Points: {points}</span>
+        </div>
+        <div className="finish_time">
+          <span>Total seconds: {totalTime}</span>
         </div>
         <Link to="/" className="finish_link">
           <div className="finish_time">

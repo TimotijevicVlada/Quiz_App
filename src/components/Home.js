@@ -10,7 +10,8 @@ const Home = ({
   setQuestionNumbers,
   fetchQuestions,
   setFinishVisible,
-  setStopTimer
+  setStopTimer,
+  setTotalTime
 }) => {
   const [dropdown, setDropdown] = useState(false);
   const [numberDropdown, setNumberDropdown] = useState(false);
@@ -29,6 +30,7 @@ const Home = ({
     fetchQuestions();
     setFinishVisible(false);
     setStopTimer(true);
+    setTotalTime(0);
   };
 
   return (
