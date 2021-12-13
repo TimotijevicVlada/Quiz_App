@@ -63,7 +63,7 @@ const App = () => {
         }
       }
     }
-  }, [countdown, points, questionNum, questionNumbers, stopTimer, totalTime, wrongAnswerNumber]);
+  }, [countdown, points, questionNum, questionNumbers, stopTimer, totalTime, wrongAnswerNumber, pointsComp1, pointsComp2]);
 
   useEffect(() => {
     const interval = setInterval(() => {
