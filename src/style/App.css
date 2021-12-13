@@ -361,7 +361,7 @@
   top: 65px;
   background-color: rgba(141, 121, 233, 0.2);
   color: white;
-  padding: 25px 50px;
+  padding: 25px 20px;
   border-radius: 0px 80px 80px 0px;
 }
 
@@ -369,25 +369,38 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
 }
 
-.App .quiz .quiz_questions .score .human_player .pts {
+.App .quiz .quiz_questions .score .human_player div {
+  margin: 0px 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding: 0px 5px 0px 10px;
+}
+
+.App .quiz .quiz_questions .score .human_player div .pts {
   font-weight: 700;
   font-size: 25px;
   font-family: "Inter";
 }
 
-.App .quiz .quiz_questions .score .human_player .player_name {
+.App .quiz .quiz_questions .score .human_player div .player_name {
   font-weight: 700;
   font-size: 16px;
   letter-spacing: 3px;
+}
+
+.App .quiz .quiz_questions .score .human_player .comp1 {
+  border-left: 1px solid white;
+  border-right: 1px solid white;
 }
 
 .App .quiz .quiz_questions .timer {
@@ -608,12 +621,10 @@
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
   background: -webkit-gradient(linear, left top, left bottom, from(#132248), to(#120221));
   background: linear-gradient(180deg, #132248 0%, #120221 100%);
   color: white;
+  padding-top: 40px;
 }
 
 .App .finish .finish_data {
@@ -627,10 +638,11 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  margin-right: 10px;
 }
 
 .App .finish .finish_data div {
-  width: 500px;
+  width: 400px;
   padding: 15px;
   text-align: center;
   border-radius: 94px;
@@ -664,5 +676,23 @@
 
 .App .finish .finish_data .finish_link .finish_time:hover {
   background-color: #9e46fd;
+}
+
+.App .finish .comps_results div {
+  width: 400px;
+  padding: 15px;
+  text-align: center;
+  border-radius: 94px;
+  border: 2px solid #8d79e9;
+  margin: 10px 0px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  margin-right: 10px;
+  font-size: 30px;
 }
 /*# sourceMappingURL=App.css.map */

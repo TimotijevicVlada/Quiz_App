@@ -1,10 +1,20 @@
 import React from 'react';
 
-const Player = ({points, player}) => {
+const Player = ({points, player, pointsComp1, pointsComp2}) => {
     return (
         <div className="human_player">
-          <span className="pts">{points} pts</span>
-          <span className="player_name">{player}</span>
+          <div className='human'>
+            <span className="pts">{points} pts</span>
+            <span className="player_name">{player}</span>
+          </div>
+          <div className='comp1'>
+            <span className="pts">{pointsComp1} pts</span>
+            <span className="player_name">Comp 1</span>
+          </div>
+          <div className='comp2'>
+            <span className="pts">{pointsComp2} pts</span>
+            <span className="player_name">Comp 2</span>
+          </div>
         </div>
     )
 }

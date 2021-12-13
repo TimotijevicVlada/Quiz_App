@@ -4,6 +4,7 @@ import Home from "./components/Home";
 import Quiz from "./components/Quiz";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
+
 const App = () => {
   const [player, setPlayer] = useState("HUMAN PLAYER");
   const [category, setCategory] = useState(26);
@@ -12,12 +13,16 @@ const App = () => {
   const [answers, setAnswers] = useState(null);
   const [questionNum, setQuestionNum] = useState(1);
   const [points, setPoints] = useState(0);
+  const [pointsComp1, setPointsComp1] = useState(0);
+  const [pointsComp2, setPointsComp2] = useState(0);
   const [countdown, setCountdown] = useState(15);
   const [finishVisible, setFinishVisible] = useState(false);
   const [stopTimer, setStopTimer] = useState(false);
   const [totalTime, setTotalTime] = useState(0);
   const [correctAnswerNumber, setCorrectAnswerNumber] = useState(0);
   const [wrongAnswerNumber, setWrongAnswerNumber] = useState(0);
+
+  
 
 
   //Function that fetch Api data
@@ -46,11 +51,15 @@ const App = () => {
           setQuestionNum(questionNum + 1);
           setCountdown(15);
           setWrongAnswerNumber(wrongAnswerNumber + 1);
+          setPointsComp1(pointsComp1 - 5);
+          setPointsComp2(pointsComp2 - 5);
         } else {
           setPoints(points - 10);
           setWrongAnswerNumber(wrongAnswerNumber + 1);
           setStopTimer(false);
           setFinishVisible(true);
+          setPointsComp1(pointsComp1 - 5);
+          setPointsComp2(pointsComp2 - 5);
         }
       }
     }
@@ -136,6 +145,8 @@ const App = () => {
                 setTotalTime={setTotalTime}
                 setCorrectAnswerNumber={setCorrectAnswerNumber}
                 setWrongAnswerNumber={setWrongAnswerNumber}
+                setPointsComp1={setPointsComp1}
+                setPointsComp2={setPointsComp2}
               />
             }
           />
@@ -163,6 +174,10 @@ const App = () => {
                 wrongAnswerNumber={wrongAnswerNumber}
                 setCorrectAnswerNumber={setCorrectAnswerNumber}
                 setWrongAnswerNumber={setWrongAnswerNumber}
+                setPointsComp1={setPointsComp1}
+                setPointsComp2={setPointsComp2}
+                pointsComp1={pointsComp1}
+                pointsComp2={pointsComp2}
               />
             }
           />

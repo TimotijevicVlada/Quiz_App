@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const QuizFinished = ({ points, player, totalTime, correctAnswerNumber, wrongAnswerNumber }) => {
+const QuizFinished = ({ points, player, totalTime, correctAnswerNumber, wrongAnswerNumber, pointsComp1, pointsComp2 }) => {
 
   
   return (
@@ -28,6 +28,15 @@ const QuizFinished = ({ points, player, totalTime, correctAnswerNumber, wrongAns
           </div>
         </Link>
       </div>
+      <div className="comps_results">
+        <div>Computer 1</div>
+        <div>Points: {pointsComp1}</div>
+      </div>
+      <div className="comps_results">
+        <div>Computer 2</div>
+        <div>Points: {pointsComp2}</div>
+      </div>
+
     </div>
   );
 };

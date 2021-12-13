@@ -8,6 +8,7 @@ import QuizFinished from "./QuizFinished";
 import useSound from "use-sound";
 import correct from "../assets/correct_answer.mp3";
 import wrong from "../assets/wrong_answer.mp3";
+import skip from "../assets/skip.wav";
 
 const Quiz = ({
   answers,
@@ -29,12 +30,17 @@ const Quiz = ({
   setWrongAnswerNumber,
   correctAnswerNumber,
   wrongAnswerNumber,
+  setPointsComp1,
+  setPointsComp2,
+  pointsComp1,
+  pointsComp2
 }) => {
   const [percentage, setPercentage] = useState(0);
   const [currentQuestion, setCurrentQuestion] = useState(null);
 
   const [correctSound] = useSound(correct);
   const [wrongSound] = useSound(wrong);
+  const [skipSound] = useSound(skip);
 
   //Setting the current question
   useEffect(() => {
@@ -79,19 +85,41 @@ const Quiz = ({
       setPoints(points - 5);
       setCountdown(15);
       setWrongAnswerNumber(wrongAnswerNumber + 1);
+      setPointsComp1(pointsComp1 - 5);
+      setPointsComp2(pointsComp2 - 5);
+      skipSound();
     } else {
       setPoints(points - 5);
       setStopTimer(false);
       setWrongAnswerNumber(wrongAnswerNumber + 1);
+      setPointsComp1(pointsComp1 - 5);
+      setPointsComp2(pointsComp2 - 5);
+      skipSound();
       setTimeout(() => {
         setFinishVisible(true);
       }, 1000);
     }
   };
 
+  
   //Funtion that handle choosen answer
   const handleAnswer = (item) => {
+    console.log(answers);
     if (questionNum < questionNumbers) {
+      //Handle comp1 players answers
+      console.log(Math.floor(Math.random() * 4))
+      if(answers[Math.floor(Math.random() * 4)].answ === currentQuestion.correct_answer) {
+        setPointsComp1(pointsComp1 + 10);
+      } else {
+        setPointsComp1(pointsComp1 - 5);
+      }
+      //Handle comp2 players answers
+      if(answers[Math.floor(Math.random() * 4)].answ === currentQuestion.correct_answer) {
+        setPointsComp2(pointsComp2 + 10);
+      } else {
+        setPointsComp2(pointsComp2 - 5);
+      }
+      //Handle human player answer
       if (item === currentQuestion.correct_answer) {
         correctSound();
         setPoints(points + 10);
@@ -137,7 +165,7 @@ const Quiz = ({
       {!finishVisible ? (
         <div className="quiz_questions">
           <div className="score">
-            <Player points={points} player={player} />
+            <Player points={points} player={player} pointsComp1={pointsComp1} pointsComp2={pointsComp2}/>
           </div>
           <div className="timer">
             <i
@@ -167,6 +195,8 @@ const Quiz = ({
           totalTime={totalTime}
           correctAnswerNumber={correctAnswerNumber}
           wrongAnswerNumber={wrongAnswerNumber}
+          pointsComp1={pointsComp1}
+          pointsComp2={pointsComp2}
         />
       )}
     </div>
