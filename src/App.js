@@ -1,15 +1,20 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useContext } from "react";
 import "./style/App.css";
 import Home from "./components/Home";
 import Quiz from "./components/Quiz";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {QuizContext} from "./context/Context";
 
 
 const App = () => {
-  const [player, setPlayer] = useState("HUMAN PLAYER");
-  const [category, setCategory] = useState(26);
-  const [questionNumbers, setQuestionNumbers] = useState(5);
-  const [questions, setQuestions] = useState([]);
+
+  //Distructure object from Context Api
+  const {questionNumbers, setQuestionNumbers, category, setCategory, questions, setQuestions, fetchQuestions, player, setPlayer} = useContext(QuizContext);
+
+  //const [player, setPlayer] = useState("HUMAN PLAYER");
+  //const [category, setCategory] = useState(26);
+  //const [questionNumbers, setQuestionNumbers] = useState(5);
+  //const [questions, setQuestions] = useState([]);
   const [answers, setAnswers] = useState(null);
   const [questionNum, setQuestionNum] = useState(1);
   const [points, setPoints] = useState(0);
@@ -23,21 +28,6 @@ const App = () => {
   const [wrongAnswerNumber, setWrongAnswerNumber] = useState(0);
 
   
-
-
-  //Function that fetch Api data
-  const fetchQuestions = useCallback(async () => {
-    const res = await fetch(
-      `https://opentdb.com/api.php?amount=${questionNumbers}&category=${category}&difficulty=medium&type=multiple`
-    );
-    const data = await res.json();
-    //console.log(data.results);
-    setQuestions(data.results);
-  }, [category, questionNumbers]);
-
-  useEffect(() => {
-    fetchQuestions();
-  }, [fetchQuestions]);
 
   //Countdown timer
   const handleCountdown = useCallback(() => {
