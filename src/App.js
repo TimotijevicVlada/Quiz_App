@@ -9,43 +9,33 @@ import {QuizContext} from "./context/Context";
 const App = () => {
 
   //Distructure object from Context Api
-  const {questionNumbers, setQuestionNumbers, category, setCategory, questions, setQuestions, fetchQuestions, player, setPlayer} = useContext(QuizContext);
+  const {player, playerScore, setPlayerScore} = useContext(QuizContext);
 
-  //const [player, setPlayer] = useState("HUMAN PLAYER");
-  //const [category, setCategory] = useState(26);
-  //const [questionNumbers, setQuestionNumbers] = useState(5);
-  //const [questions, setQuestions] = useState([]);
   const [answers, setAnswers] = useState(null);
   const [questionNum, setQuestionNum] = useState(1);
-  const [points, setPoints] = useState(0);
   const [pointsComp1, setPointsComp1] = useState(0);
   const [pointsComp2, setPointsComp2] = useState(0);
   const [countdown, setCountdown] = useState(15);
   const [finishVisible, setFinishVisible] = useState(false);
   const [stopTimer, setStopTimer] = useState(false);
-  const [totalTime, setTotalTime] = useState(0);
-  const [correctAnswerNumber, setCorrectAnswerNumber] = useState(0);
-  const [wrongAnswerNumber, setWrongAnswerNumber] = useState(0);
 
-  
+
 
   //Countdown timer
   const handleCountdown = useCallback(() => {
     if (stopTimer) {
       if (countdown > 0) {
         setCountdown(countdown - 1);
-        setTotalTime(totalTime + 1);
+        setPlayerScore({...playerScore, totalTime: playerScore.totalTime + 1});
       } else {
-        if (questionNum < questionNumbers) {
-          setPoints(points - 10);
+        if (questionNum < player.numberOfQuestions) {
+          setPlayerScore({...playerScore, points: playerScore.points - 10, wrongAnswers: playerScore.wrongAnswers + 1});
           setQuestionNum(questionNum + 1);
           setCountdown(15);
-          setWrongAnswerNumber(wrongAnswerNumber + 1);
           setPointsComp1(pointsComp1 - 5);
           setPointsComp2(pointsComp2 - 5);
         } else {
-          setPoints(points - 10);
-          setWrongAnswerNumber(wrongAnswerNumber + 1);
+          setPlayerScore({...playerScore, points: playerScore.points - 10, wrongAnswers: playerScore.wrongAnswers + 1});
           setStopTimer(false);
           setFinishVisible(true);
           setPointsComp1(pointsComp1 - 5);
@@ -53,7 +43,7 @@ const App = () => {
         }
       }
     }
-  }, [countdown, points, questionNum, questionNumbers, stopTimer, totalTime, wrongAnswerNumber, pointsComp1, pointsComp2]);
+  }, [player.numberOfQuestions, countdown, playerScore, setPlayerScore, questionNum, stopTimer, pointsComp1, pointsComp2]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -62,6 +52,8 @@ const App = () => {
     return () => clearInterval(interval);
   }, [handleCountdown]);
 
+
+  /*
   //Function that get question
   const getQuestionStorage = () => {
     if (localStorage.getItem("question") === null) {
@@ -112,7 +104,7 @@ const App = () => {
 
   useEffect(() => {
     savePlayerValue();
-  }, [savePlayerValue]);
+  }, [savePlayerValue]);*/
 
   return (
     <Router>
@@ -122,19 +114,10 @@ const App = () => {
             path="/"
             element={
               <Home
-                setCategory={setCategory}
                 setCountdown={setCountdown}
-                setPoints={setPoints}
-                setPlayer={setPlayer}
                 setQuestionNum={setQuestionNum}
-                questionNumbers={questionNumbers}
-                setQuestionNumbers={setQuestionNumbers}
-                fetchQuestions={fetchQuestions}
                 setFinishVisible={setFinishVisible}
                 setStopTimer={setStopTimer}
-                setTotalTime={setTotalTime}
-                setCorrectAnswerNumber={setCorrectAnswerNumber}
-                setWrongAnswerNumber={setWrongAnswerNumber}
                 setPointsComp1={setPointsComp1}
                 setPointsComp2={setPointsComp2}
               />
@@ -146,24 +129,13 @@ const App = () => {
               <Quiz
                 answers={answers}
                 setAnswers={setAnswers}
-                questions={questions}
-                fetchQuestions={fetchQuestions}
                 questionNum={questionNum}
                 setQuestionNum={setQuestionNum}
-                points={points}
-                setPoints={setPoints}
                 countdown={countdown}
                 setCountdown={setCountdown}
-                player={player}
-                questionNumbers={questionNumbers}
                 finishVisible={finishVisible}
                 setFinishVisible={setFinishVisible}
                 setStopTimer={setStopTimer}
-                totalTime={totalTime}
-                correctAnswerNumber={correctAnswerNumber}
-                wrongAnswerNumber={wrongAnswerNumber}
-                setCorrectAnswerNumber={setCorrectAnswerNumber}
-                setWrongAnswerNumber={setWrongAnswerNumber}
                 setPointsComp1={setPointsComp1}
                 setPointsComp2={setPointsComp2}
                 pointsComp1={pointsComp1}

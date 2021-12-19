@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useContext } from "react";
 import Player from "./Player";
 import Qnumber from "./Qnumber";
 import Question from "./Question";
@@ -9,32 +9,26 @@ import useSound from "use-sound";
 import correct from "../assets/correct_answer.mp3";
 import wrong from "../assets/wrong_answer.mp3";
 import skip from "../assets/skip.wav";
+import { QuizContext } from "../context/Context";
 
 const Quiz = ({
   answers,
   setAnswers,
-  questions,
   setQuestionNum,
   questionNum,
-  setPoints,
-  points,
   countdown,
   setCountdown,
-  player,
-  questionNumbers,
   finishVisible,
   setFinishVisible,
   setStopTimer,
-  totalTime,
-  setCorrectAnswerNumber,
-  setWrongAnswerNumber,
-  correctAnswerNumber,
-  wrongAnswerNumber,
   setPointsComp1,
   setPointsComp2,
   pointsComp1,
   pointsComp2
 }) => {
+
+  const {player, playerScore, setPlayerScore} = useContext(QuizContext);
+
   const [percentage, setPercentage] = useState(0);
   const [currentQuestion, setCurrentQuestion] = useState(null);
 
@@ -42,10 +36,11 @@ const Quiz = ({
   const [wrongSound] = useSound(wrong);
   const [skipSound] = useSound(skip);
 
+
   //Setting the current question
   useEffect(() => {
-    setCurrentQuestion(questions[questionNum - 1]);
-  }, [questions, questionNum]);
+    setCurrentQuestion(player.questions[questionNum - 1]);
+  }, [player.questions, questionNum]);
 
   //Funtion that handle current answer and shuffle it
   const handleCurrentAnswers = useCallback(() => {
@@ -80,18 +75,16 @@ const Quiz = ({
 
   //Function that handle the skip button
   const handleSkip = () => {
-    if (questionNum < questionNumbers) {
+    if (questionNum < player.numberOfQuestions) {
       setQuestionNum(questionNum + 1);
-      setPoints(points - 5);
+      setPlayerScore({...playerScore, points: playerScore.points - 5, wrongAnswers: playerScore.wrongAnswers + 1});
       setCountdown(15);
-      setWrongAnswerNumber(wrongAnswerNumber + 1);
       setPointsComp1(pointsComp1 - 5);
       setPointsComp2(pointsComp2 - 5);
       skipSound();
     } else {
-      setPoints(points - 5);
+      setPlayerScore({...playerScore, points: playerScore.points - 5, wrongAnswers: playerScore.wrongAnswers + 1});
       setStopTimer(false);
-      setWrongAnswerNumber(wrongAnswerNumber + 1);
       setPointsComp1(pointsComp1 - 5);
       setPointsComp2(pointsComp2 - 5);
       skipSound();
@@ -104,10 +97,8 @@ const Quiz = ({
   
   //Funtion that handle choosen answer
   const handleAnswer = (item) => {
-    console.log(answers);
-    if (questionNum < questionNumbers) {
+    if (questionNum < player.numberOfQuestions) {
       //Handle comp1 players answers
-      console.log(Math.floor(Math.random() * 4))
       if(answers[Math.floor(Math.random() * 4)].answ === currentQuestion.correct_answer) {
         setPointsComp1(pointsComp1 + 10);
       } else {
@@ -122,12 +113,10 @@ const Quiz = ({
       //Handle human player answer
       if (item === currentQuestion.correct_answer) {
         correctSound();
-        setPoints(points + 10);
-        setCorrectAnswerNumber(correctAnswerNumber + 1);
+        setPlayerScore({...playerScore, points: playerScore.points + 10, correctAnswers: playerScore.correctAnswers + 1});
       } else {
         wrongSound();
-        setPoints(points - 5);
-        setWrongAnswerNumber(wrongAnswerNumber + 1);
+        setPlayerScore({...playerScore, points: playerScore.points - 5, wrongAnswers: playerScore.wrongAnswers + 1});
       }
       setTimeout(() => {
         setQuestionNum(questionNum + 1);
@@ -135,13 +124,11 @@ const Quiz = ({
       }, 1000);
     } else {
       if (item === currentQuestion.correct_answer) {
-        setPoints(points + 10);
+        setPlayerScore({...playerScore, points: playerScore.points + 10, correctAnswers: playerScore.correctAnswers + 1});
         correctSound();
-        setCorrectAnswerNumber(correctAnswerNumber + 1);
       } else {
-        setPoints(points - 5);
+        setPlayerScore({...playerScore, points: playerScore.points - 5, wrongAnswers: playerScore.wrongAnswers + 1});
         wrongSound();
-        setWrongAnswerNumber(wrongAnswerNumber + 1);
       }
       setStopTimer(false);
       setTimeout(() => {
@@ -152,9 +139,9 @@ const Quiz = ({
 
   //Function that handle percentage of progress bar on the bottom of the page
   const handlePercentage = useCallback(() => {
-    let percent = 100 / questionNumbers;
+    let percent = 100 / player.numberOfQuestions;
     setPercentage(percent);
-  }, [questionNumbers]);
+  }, [player.numberOfQuestions]);
 
   useEffect(() => {
     handlePercentage();
@@ -165,7 +152,7 @@ const Quiz = ({
       {!finishVisible ? (
         <div className="quiz_questions">
           <div className="score">
-            <Player points={points} player={player} pointsComp1={pointsComp1} pointsComp2={pointsComp2}/>
+            <Player pointsComp1={pointsComp1} pointsComp2={pointsComp2}/>
           </div>
           <div className="timer">
             <i
@@ -178,7 +165,6 @@ const Quiz = ({
           <div className="quiz_content">
             <Qnumber
               questionNum={questionNum}
-              questionNumbers={questionNumbers}
             />
             <Question currentQuestion={currentQuestion} />
             <Answers answers={answers} handleAnswer={handleAnswer} />
@@ -190,11 +176,6 @@ const Quiz = ({
         </div>
       ) : (
         <QuizFinished
-          points={points}
-          player={player}
-          totalTime={totalTime}
-          correctAnswerNumber={correctAnswerNumber}
-          wrongAnswerNumber={wrongAnswerNumber}
           pointsComp1={pointsComp1}
           pointsComp2={pointsComp2}
         />

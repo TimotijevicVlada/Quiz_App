@@ -1,25 +1,21 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useContext } from "react";
 import { Link } from "react-router-dom";
 import useSound from "use-sound";
 import startMusic from "../assets/start_sound.mp3";
+import { QuizContext } from "../context/Context";
 
 const Home = ({
-  setCategory,
   setCountdown,
-  setPoints,
-  setPlayer,
   setQuestionNum,
-  setQuestionNumbers,
-  fetchQuestions,
   setFinishVisible,
   setStopTimer,
-  setTotalTime,
-  questionNumbers,
-  setCorrectAnswerNumber,
-  setWrongAnswerNumber,
   setPointsComp1,
   setPointsComp2
 }) => {
+
+  const {player, setPlayer, playerScore, setPlayerScore} = useContext(QuizContext);
+
+
   const [dropdown, setDropdown] = useState(false);
   const [numberDropdown, setNumberDropdown] = useState(false);
   const [selectCategory, setSelectCategory] = useState("SELECT CATEGORY");
@@ -39,23 +35,19 @@ const Home = ({
       setSelectCategory("ART"); 
     }
     setDropdown(false);
-    setCategory(number);
+    setPlayer({...player, category: number});
   };
 
   //Function that handle play button
   const handlePlay = () => {
     startSound();
     setCountdown(15);
-    setPoints(0);
     setQuestionNum(1);
-    fetchQuestions();
     setFinishVisible(false);
     setStopTimer(true);
-    setTotalTime(0);
-    setCorrectAnswerNumber(0);
-    setWrongAnswerNumber(0);
     setPointsComp1(0);
     setPointsComp2(0);
+    setPlayerScore({...playerScore, points: 0, totalTime: 0, correctAnswers: 0, wrongAnswers: 0})
   };
 
    //Function that exit the form number on click out
@@ -76,7 +68,7 @@ const Home = ({
       <div className="menu">
         <div className="username">
           <input
-            onChange={(e) => setPlayer(e.target.value)}
+            onChange={(e) => setPlayer({...player, name: e.target.value})}
             type="text"
             placeholder="ENTER USERNAME"
           />
@@ -105,7 +97,7 @@ const Home = ({
             onClick={() => setNumberDropdown(!numberDropdown)}
             className="q_numbers_wrapper"
           >
-            <span>NUMBER OF QUESTIONS {questionNumbers}</span>
+            <span>NUMBER OF QUESTIONS {player.numberOfQuestions}</span>
             <i
               className={
                 numberDropdown ? "fas fa-chevron-up" : "fas fa-chevron-down"
@@ -115,7 +107,7 @@ const Home = ({
 
           <div  className={numberDropdown ? "q_num" : "q_num unvisible"}>
             <input
-              onChange={(e) => setQuestionNumbers(e.target.value)}
+              onChange={(e) => setPlayer({...player, numberOfQuestions: e.target.value})}
               type="number"
               max="20"
               min="2"
@@ -124,7 +116,7 @@ const Home = ({
           </div>
         </div>
         <Link to="/quiz" onClick={handlePlay} className="play">
-          <button>PLAY</button>
+            PLAY
         </Link>
       </div>
     </div>

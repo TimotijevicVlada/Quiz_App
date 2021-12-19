@@ -131,6 +131,11 @@
       .play {
         background-color: #8d79e9;
         text-decoration: none;
+        font-size: 30px;
+        color: white;
+        font-family: "Inter";
+        display: flex;
+        justify-content: center;
         &:hover {
           background-color: #7f66eb;
         }

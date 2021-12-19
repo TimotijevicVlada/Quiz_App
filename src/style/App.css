@@ -232,6 +232,15 @@
 .App .home .menu .play {
   background-color: #8d79e9;
   text-decoration: none;
+  font-size: 30px;
+  color: white;
+  font-family: "Inter";
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 .App .home .menu .play:hover {

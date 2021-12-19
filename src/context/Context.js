@@ -1,32 +1,42 @@
-import { createContext, useState, useEffect, useCallback} from "react";
+import { createContext, useState, useEffect, useCallback } from "react";
 
 export const QuizContext = createContext();
 
-export const ContextProvider = ({children}) => {
+export const ContextProvider = ({ children }) => {
+  
+//maiking the player object to change all unececery states
+const [player, setPlayer] = useState({
+  name: "Human Player",
+  numberOfQuestions: 3,
+  category: 26,
+  questions: []
+})
 
-const [player, setPlayer] = useState("HUMAN PLAYER");
-const [questionNumbers, setQuestionNumbers] = useState(5);
-const [category, setCategory] = useState(26);
-const [questions, setQuestions] = useState([]);
+const [playerScore, setPlayerScore] = useState({
+  correctAnswers: 0,
+  wrongAnswers: 0,
+  points: 0,
+  totalTime: 0
+})
 
- //Function that fetch Api data
-  const fetchQuestions = useCallback(async () => {
+  //Function that fetch Api data
+  const fetchQuestions = useCallback(  async () => {
     const res = await fetch(
-      `https://opentdb.com/api.php?amount=${questionNumbers}&category=${category}&difficulty=medium&type=multiple`
+      `https://opentdb.com/api.php?amount=${player.numberOfQuestions}&category=${player.category}&difficulty=medium&type=multiple`
     );
     const data = await res.json();
     //console.log(data.results);
-    setQuestions(data.results);
-  }, [category, questionNumbers]);
+    setPlayer({ ...player, questions: data.results });
+  }, []);
 
   useEffect(() => {
     fetchQuestions();
   }, [fetchQuestions]);
-  
+
 
   return (
     <QuizContext.Provider
-      value={{questionNumbers, setQuestionNumbers, category, setCategory, questions, setQuestions, fetchQuestions, player, setPlayer}}
+      value={{player, setPlayer, playerScore, setPlayerScore}}
     >
       {children}
     </QuizContext.Provider>
