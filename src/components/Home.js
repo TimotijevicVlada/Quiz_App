@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import useSound from "use-sound";
 import startMusic from "../assets/start_sound.mp3";
@@ -25,6 +25,9 @@ const Home = ({
   const [selectCategory, setSelectCategory] = useState("SELECT CATEGORY");
 
   const [startSound] = useSound(startMusic);
+
+  const numRef = useRef();
+  const categoryRef = useRef();
 
   //Function that handle button to choose categories
   const handleButtons = (number) => {
@@ -55,8 +58,16 @@ const Home = ({
     setPointsComp2(0);
   };
 
+   //Function that exit the form number on click out
+   const handleExit = (e) => {
+    if(!numRef.current.contains(e.target) && !categoryRef.current.contains(e.target)) {
+      setNumberDropdown(false);
+      setDropdown(false);
+    }
+  }
+
   return (
-    <div className="home">
+    <div onClick={handleExit} className="home">
       <div className="logo">
         <span className="logo_name">Quiz</span>
         <span className="logo_rectangle"></span>
@@ -70,13 +81,13 @@ const Home = ({
             placeholder="ENTER USERNAME"
           />
         </div>
-        <div onClick={() => setDropdown(!dropdown)} className="category">
+        <div ref={categoryRef} onClick={() => setDropdown(!dropdown)} className="category">
           <span>{selectCategory}</span>
           <i
             className={dropdown ? "fas fa-chevron-up" : "fas fa-chevron-down"}
           ></i>
           {dropdown && (
-            <div className="dropdown">
+            <div  className="dropdown">
               <div onClick={() => handleButtons(26)} className="celebrities">
                 CELEBRITIES
               </div>
@@ -89,7 +100,7 @@ const Home = ({
             </div>
           )}
         </div>
-        <div className="q_numbers">
+        <div ref={numRef} className="q_numbers">
           <div
             onClick={() => setNumberDropdown(!numberDropdown)}
             className="q_numbers_wrapper"
@@ -102,7 +113,7 @@ const Home = ({
             ></i>
           </div>
 
-          <div className={numberDropdown ? "q_num" : "q_num unvisible"}>
+          <div  className={numberDropdown ? "q_num" : "q_num unvisible"}>
             <input
               onChange={(e) => setQuestionNumbers(e.target.value)}
               type="number"
