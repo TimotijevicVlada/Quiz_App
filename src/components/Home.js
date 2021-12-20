@@ -1,47 +1,64 @@
-import React, { useState, useRef, useContext } from "react";
+import React, { useState, useRef, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import useSound from "use-sound";
 import startMusic from "../assets/start_sound.mp3";
-import { QuizContext } from "../context/Context";
+import {QuizContext} from "../context/Context";
 
 const Home = ({
   setCountdown,
+  setPoints,
   setQuestionNum,
   setFinishVisible,
   setStopTimer,
+  setTotalTime,
+  setCorrectAnswerNumber,
+  setWrongAnswerNumber,
   setPointsComp1,
   setPointsComp2
 }) => {
 
-  const {player, setPlayer, playerScore, setPlayerScore} = useContext(QuizContext);
-
+  const {setPlayer, setCategory, setQuestionNumbers, fetchQuestions, questionNumbers} = useContext(QuizContext);
 
   const [dropdown, setDropdown] = useState(false);
   const [numberDropdown, setNumberDropdown] = useState(false);
-  //const [selectCategory, setSelectCategory] = useState("SELECT CATEGORY");
+  const [selectCategory, setSelectCategory] = useState("SELECT CATEGORY");
 
   const [startSound] = useSound(startMusic);
 
   const numRef = useRef();
   const categoryRef = useRef();
 
+  //On page render call fetch questions
+  useEffect(() => {
+    fetchQuestions();
+  }, [fetchQuestions])
+
   //Function that handle button to choose categories
   const handleButtons = (number) => {
-    const choseCategory = player.category.filter(item => item.pass === number);
+    if(number === 26) {
+      setSelectCategory("CELEBRITIES"); 
+    } else if(number === 23) {
+      setSelectCategory("HISTORY"); 
+    } else {
+      setSelectCategory("ART"); 
+    }
     setDropdown(false);
-    setPlayer({...player, chosenCategory: choseCategory});
+    setCategory(number);
   };
 
   //Function that handle play button
   const handlePlay = () => {
     startSound();
     setCountdown(15);
+    setPoints(0);
     setQuestionNum(1);
     setFinishVisible(false);
     setStopTimer(true);
+    setTotalTime(0);
+    setCorrectAnswerNumber(0);
+    setWrongAnswerNumber(0);
     setPointsComp1(0);
     setPointsComp2(0);
-    setPlayerScore({...playerScore, points: 0, totalTime: 0, correctAnswers: 0, wrongAnswers: 0})
   };
 
    //Function that exit the form number on click out
@@ -62,13 +79,13 @@ const Home = ({
       <div className="menu">
         <div className="username">
           <input
-            onChange={(e) => setPlayer({...player, name: e.target.value})}
+            onChange={(e) => setPlayer(e.target.value)}
             type="text"
             placeholder="ENTER USERNAME"
           />
         </div>
         <div ref={categoryRef} onClick={() => setDropdown(!dropdown)} className="category">
-          <span>{player.chosenCategory[0]?.name}</span>
+          <span>{selectCategory}</span>
           <i
             className={dropdown ? "fas fa-chevron-up" : "fas fa-chevron-down"}
           ></i>
@@ -91,7 +108,7 @@ const Home = ({
             onClick={() => setNumberDropdown(!numberDropdown)}
             className="q_numbers_wrapper"
           >
-            <span>NUMBER OF QUESTIONS {player.numberOfQuestions}</span>
+            <span>NUMBER OF QUESTIONS {questionNumbers}</span>
             <i
               className={
                 numberDropdown ? "fas fa-chevron-up" : "fas fa-chevron-down"
@@ -101,7 +118,7 @@ const Home = ({
 
           <div  className={numberDropdown ? "q_num" : "q_num unvisible"}>
             <input
-              onChange={(e) => setPlayer({...player, numberOfQuestions: e.target.value})}
+              onChange={(e) => setQuestionNumbers(e.target.value)}
               type="number"
               max="20"
               min="2"
@@ -110,7 +127,7 @@ const Home = ({
           </div>
         </div>
         <Link to="/quiz" onClick={handlePlay} className="play">
-            PLAY
+          <button>PLAY</button>
         </Link>
       </div>
     </div>

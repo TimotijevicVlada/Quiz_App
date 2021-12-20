@@ -1,28 +1,28 @@
 import React, {useContext} from "react";
 import { Link } from "react-router-dom";
-import { QuizContext } from "../context/Context";
+import {QuizContext} from "../context/Context";
 
-const QuizFinished = ({ pointsComp1, pointsComp2 }) => {
+const QuizFinished = ({ points, totalTime, correctAnswerNumber, wrongAnswerNumber, pointsComp1, pointsComp2 }) => {
 
-  const {player, playerScore} = useContext(QuizContext);
+const {player} = useContext(QuizContext);
   
   return (
     <div className="finish">
       <div className="finish_data">
         <div className="name">
-          <span>{player.name}</span>
+          <span>{player}</span>
         </div>
         <div className="finish_pts">
-          <span>Points: {playerScore.points}</span>
+          <span>Points: {points}</span>
         </div>
         <div className="correct_answer">
-          <span>Correct answers: {playerScore.correctAnswers}</span>
+          <span>Correct answers: {correctAnswerNumber}</span>
         </div>
         <div className="wrong_answer">
-          <span>Wrong answers: {playerScore.wrongAnswers}</span>
+          <span>Wrong answers: {wrongAnswerNumber}</span>
         </div>
         <div className="finish_time">
-          <span>Total seconds: {playerScore.totalTime}</span>
+          <span>Total seconds: {totalTime}</span>
         </div>
         <Link to="/" className="finish_link">
           <div className="finish_time">
@@ -44,3 +44,4 @@ const QuizFinished = ({ pointsComp1, pointsComp2 }) => {
 };
 
 export default QuizFinished;
+
