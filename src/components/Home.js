@@ -18,7 +18,7 @@ const Home = ({
 
   const [dropdown, setDropdown] = useState(false);
   const [numberDropdown, setNumberDropdown] = useState(false);
-  const [selectCategory, setSelectCategory] = useState("SELECT CATEGORY");
+  //const [selectCategory, setSelectCategory] = useState("SELECT CATEGORY");
 
   const [startSound] = useSound(startMusic);
 
@@ -27,15 +27,9 @@ const Home = ({
 
   //Function that handle button to choose categories
   const handleButtons = (number) => {
-    if(number === 26) {
-      setSelectCategory("CELEBRITIES"); 
-    } else if(number === 23) {
-      setSelectCategory("HISTORY"); 
-    } else {
-      setSelectCategory("ART"); 
-    }
+    const choseCategory = player.category.filter(item => item.pass === number);
     setDropdown(false);
-    setPlayer({...player, category: number});
+    setPlayer({...player, chosenCategory: choseCategory});
   };
 
   //Function that handle play button
@@ -74,7 +68,7 @@ const Home = ({
           />
         </div>
         <div ref={categoryRef} onClick={() => setDropdown(!dropdown)} className="category">
-          <span>{selectCategory}</span>
+          <span>{player.chosenCategory[0]?.name}</span>
           <i
             className={dropdown ? "fas fa-chevron-up" : "fas fa-chevron-down"}
           ></i>
